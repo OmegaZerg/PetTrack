@@ -1,5 +1,5 @@
 # PetTrack
-App to help track and manage pets! An overview of features are listend below.
+App to help track and manage pets! An overview of features are listed below.
 
 ## Select from multiple pet profiles
  - Ability to manage each pet profile that is created (CRUD)
