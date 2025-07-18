@@ -22,14 +22,16 @@ def main():
             #Unknown input
             raise ValueError(f"Unknown input of {menu_choice} was provided.")
             
-    with open("pets.json", mode="r", encoding="utf-8")  as read_file:
-        pets = json.load(read_file)
+    # with open("pets.json", mode="r", encoding="utf-8")  as read_file:
+    #     pets = json.load(read_file)
     
-    print("This is printing the pets file:\n")
-    print(pets)
-    print(f"Total entries: {pets["total_entries"]}")
-    #print(f"First pet: {pets["PT_1"]}")
+    # print("This is printing the pets file:\n")
+    # print(pets)
+    # print(f"Total entries: {pets["total_entries"]}")
     get_pet_profile_by_id("PT_1")
+
+    print("Testing create_pet_profile")
+    create_pet_profile("Lucky", "Dog", 2, "M", "Black")
 
 if __name__ == "__main__":
     main()
