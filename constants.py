@@ -1,0 +1,1 @@
+MAIN_MENU = "Please select from one of the following options:\n1. Edit an existing profile\n2. Create a new profile\n3. View blog\n"

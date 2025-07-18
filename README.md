@@ -24,3 +24,7 @@ App to help track and manage pets! An overview of features are listed below.
 
 ## Blog
 - Free text blog with date/time stamps for logging anything (Concerns, issues, notes, etc.)
+
+## Project Goals
+1. Practice Python by making a usefull CLI application
+2. Have fun (is that allowed?)
