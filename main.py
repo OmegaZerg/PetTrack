@@ -1,11 +1,10 @@
 from functions import *
 from constants import *
-import json
 
 def main():
     print("~~~~~~~~~~~~| Hello from Pet-Track! |~~~~~~~~~~~~")
     #TODO: display existing profiles here (maximum of like 5?)
-    menu_choice = get_user_input(MAIN_MENU)
+    menu_choice = get_user_input(UserInput.MAIN_MENU)
     print(f"You chose: {menu_choice}")
 
     match menu_choice:
@@ -22,16 +21,14 @@ def main():
             #Unknown input
             raise ValueError(f"Unknown input of {menu_choice} was provided.")
             
-    # with open("pets.json", mode="r", encoding="utf-8")  as read_file:
-    #     pets = json.load(read_file)
-    
-    # print("This is printing the pets file:\n")
-    # print(pets)
-    # print(f"Total entries: {pets["total_entries"]}")
-    get_pet_profile_by_id("PT_1")
+
+    display_pet_profile_by_id("PT_1")
 
     print("Testing create_pet_profile")
     create_pet_profile("Lucky", "Dog", 2, "M", "Black")
+
+    print("Testing delete_pet_profile_by_id")
+    delete_pet_profile_by_id("PT_6")
 
 if __name__ == "__main__":
     main()

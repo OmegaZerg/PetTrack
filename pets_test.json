@@ -1,34 +1,6 @@
 {
-    "total_entries": 5,
+    "total_entries": 1,
     "PT_1": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_2": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_3": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_4": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_5": {
         "name": "Lucky",
         "type": "Dog",
         "age": 2,
