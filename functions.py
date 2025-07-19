@@ -10,8 +10,39 @@ def display_pet_profile_by_id(pet_id: str):
     try:
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
-            print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
-            print(f"{pets[pet_id]}")
+        
+        print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
+
+        #possible setting to add for coonfig later, for now commenting out profile1
+        #pretty print profile1
+        # id = f"[ Pet Profile ID: {pet_id} ]"
+        # name = f"[ Pet Name: {pets[pet_id]["name"]} ]"
+        # type = f"[ Pet Type: {pets[pet_id]["type"]} ]"
+        # age = f"[ Pet Age: {pets[pet_id]["age"]} ]"
+        # gender = f"[ Pet Gender: {pets[pet_id]["gender"]} ]"
+        # color = f"[ Pet Color: {pets[pet_id]["color"]} ]"
+        # print(f"{id:{'-'}^50}")
+        # print(f"{name:{'-'}^50}")
+        # print(f"{type:{'-'}^50}")
+        # print(f"{age:{'-'}^50}")
+        # print(f"{gender:{'-'}^50}")
+        # print(f"{color:{'-'}^50}")
+
+        #pretty print profile2
+        print()
+        id = f"[ Pet Profile ID: {pet_id} ]"
+        name = f"[ Pet Name      : {pets[pet_id]["name"]} ]"
+        type = f"[ Pet Type      : {pets[pet_id]["type"]} ]"
+        age = f"[ Pet Age       : {pets[pet_id]["age"]} ]"
+        gender = f"[ Pet Gender    : {pets[pet_id]["gender"]} ]"
+        color = f"[ Pet Color     : {pets[pet_id]["color"]} ]"
+        print(f"{id:{'-'}<50}")
+        print(f"{name:{'-'}<50}")
+        print(f"{type:{'-'}<50}")
+        print(f"{age:{'-'}<50}")
+        print(f"{gender:{'-'}<50}")
+        print(f"{color:{'-'}<50}")
+
     except KeyError as ke:
         print(f"ERROR: Unable to find pet ID: {ke}!")
     except Exception as e:
@@ -53,6 +84,8 @@ def create_pet_profile(name: str, type: str, age: int, gender: str, color: str):
         pets[new_pet_id] = new_pet
         json.dump(pets, write_file, indent=4)
 
+    display_pet_profile_by_id(new_pet_id)
+
 def delete_pet_profile_by_id(pet_id: str):
     if not os.path.exists(TEST_FILE):
         raise Exception(f"ERROR: File path to pets data does not exist. Unable to delete Pet ID: {pet_id}")
@@ -64,7 +97,7 @@ def delete_pet_profile_by_id(pet_id: str):
         pet_to_remove = pets[pet_id]
         #TODO: Need function to display "cleaned" pet profile
         display_pet_profile_by_id(pet_id)
-        confirm_delete = get_user_input(UserInput.DELETE_PROFILE).lower()
+        confirm_delete = get_user_input(UserInput.DELETE_PROFILE)
         if confirm_delete == "y" or confirm_delete == "yes":
             pets.pop(pet_id)
             pets["total_entries"] -= 1
@@ -84,15 +117,22 @@ def delete_pet_profile_by_id(pet_id: str):
 def get_user_input(text: UserInput) -> int | str:
     match text:
         case UserInput.MAIN_MENU:
-            valid_input = [1, 2, 3]
-            choice = int(input(text.value))
-            while choice not in valid_input:
-                choice = int(input(text.value))
-            return choice
-        case UserInput.DELETE_PROFILE:
-            valid_input = ["y", "yes", "n", "no"]
+            valid_input = ["1", "2", "3", "4", "9"]
             choice = input(text.value)
             while choice not in valid_input:
                 choice = input(text.value)
+            return int(choice)
+        case UserInput.MANAGE_PETS_MENU:
+            valid_input = ["1", "2", "3", "9"]
+            choice = input(text.value)
+            while choice not in valid_input:
+                choice = input(text.value)
+            return int(choice)
+        case UserInput.DELETE_PROFILE:
+            valid_input = ["y", "yes", "n", "no"]
+            choice = input(text.value).lower()
+            while choice not in valid_input:
+                choice = input(text.value)
             return choice
-    
+        case _:
+            print("ERROR: Somehow we made it to the get_user_input function without a valid user input ENUM!")
