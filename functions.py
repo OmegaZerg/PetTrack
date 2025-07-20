@@ -1,6 +1,7 @@
 import json
 import os
 from constants import *
+from classes import *
 
 def display_pet_profile_by_id(pet_id: str):
     if not pet_id.startswith("PT_"):
@@ -51,11 +52,12 @@ def display_pet_profile_by_id(pet_id: str):
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
     pass
 
-def menu_get_pet_profiles(void):
+def menu_get_pet_profiles():
     #Get up to 5 pet profiles to display
     pass
 
-def create_pet_profile(name: str, type: str, age: int, gender: str, color: str):
+#def create_pet_profile(name: str, type: str, age: int, gender: str, color: str):
+def create_pet_profile(pet: PetProfile):
     #Replace test file with prod file later
     #TODO: Add special logic to look for and handle gaps in pet IDs. So after deletetion, we can have gaps if the delete was done anywhere but the last entry. Possibly add a new data member to the json file to store these gaps, then check that first for a free ID to assign back out.
 
@@ -65,11 +67,11 @@ def create_pet_profile(name: str, type: str, age: int, gender: str, color: str):
             json.dump(empty_pets, write_file)
     
     new_pet = {
-        "name": name,
-        "type": type,
-        "age": age,
-        "gender": gender,
-        "color": color
+        "name": pet.name,
+        "type": pet.type,
+        "age": pet.age,
+        "gender": pet.gender,
+        "color": pet.color
     }
 
     with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
@@ -166,8 +168,8 @@ def get_user_input(text: UserInput) -> int | str:
                     print("Invalid color")
                     valid_input.append(False)
             #     print(f"Valid Input(Inside loop): {valid_input}")
-            # print(f"Valid Input: {valid_input}")
-            return name, type, age, gender, color
+            # print(f"Valid Input: {valid_input}") 
+            return PetProfile(name, type, age, gender, color)
         case UserInput.DELETE_PROFILE:
             valid_input = ["y", "yes", "n", "no"]
             choice = input(text.value).lower()
@@ -177,8 +179,7 @@ def get_user_input(text: UserInput) -> int | str:
         case _:
             print("ERROR: Somehow we made it to the get_user_input function without a valid user input ENUM!")
 
-def display_valid_pet_inputs(void):
-
+def display_valid_pet_inputs():
     for line in GENDERS:
         print(GENDERS[line])
     for line in TYPES:

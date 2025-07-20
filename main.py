@@ -18,7 +18,7 @@ def main():
         match menu_choice:
             case 1:
                 while True:
-                    #Function for option 1 - View/Manage Pet Profile
+                    #Main Menu option 1 - View/Manage Pet Profile
                     os.system('cls' if os.name == 'nt' else 'clear')
                     print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
                     sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
@@ -35,11 +35,11 @@ def main():
                             print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
                             print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
                             display_valid_pet_inputs()
-                            temp_tuple = get_user_input(UserInput.CREATE_PROFILE)
-                            print(f"printing temp tuple: {temp_tuple}")
+                            temp_pet_object = get_user_input(UserInput.CREATE_PROFILE)
+                            print(f"printing pet object: {temp_pet_object}")
                             input("Press Enter to continue...")
 
-                            #create_pet_profile()
+                            create_pet_profile(temp_pet_object)
                         case 9:
                             #Return to main menu
                             break
