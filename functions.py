@@ -128,6 +128,44 @@ def get_user_input(text: UserInput) -> int | str:
             while choice not in valid_input:
                 choice = input(text.value)
             return int(choice)
+        case UserInput.CREATE_PROFILE:
+            valid_input = [False]
+            while not all(valid_input):
+                valid_input = []
+                try:
+                    name, type, age, gender, color = input(text.value).split()
+                except ValueError as ve:
+                    print(f"Invalid Input Received: {ve}")
+                    continue
+                except Exception as e:
+                    print(f"Unknown Error: {e}")
+                    continue
+                if type in [item.value for item in PetType]:
+                    valid_input.append(True)
+                else:
+                    print("Invalid type")
+                    valid_input.append(False)
+                if age.isnumeric():
+                    age = int(age)
+                    valid_input.append(True)
+                else:
+                    print("Non-Numeric Age")
+                    valid_input.append(False)
+                if gender in [item.value for item in PetGender]:
+                    valid_input.append(True)
+                else:
+                    print("Invalid gender")
+                    valid_input.append(False)
+                if color in [item.value for item in PetColor]:
+                    valid_input.append(True)
+                else:
+                    print("Invalid color")
+                    valid_input.append(False)
+                print(f"Valid Input: {valid_input}")
+            print(f"Valid Input: {valid_input}")
+            return name, type, age, gender, color
+                
+
         case UserInput.DELETE_PROFILE:
             valid_input = ["y", "yes", "n", "no"]
             choice = input(text.value).lower()

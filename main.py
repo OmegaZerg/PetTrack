@@ -17,29 +17,34 @@ def main():
 
         match menu_choice:
             case 1:
-                #Function for option 1 - View/Manage Pet Profile
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
-                sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
-                match sub_menu_choice:
-                    case 1:
-                        #Function for View Existing
-                        pass
-                    case 2:
-                        #Function for Edit Existing
-                        pass
-                    case 3:
-                        #Function for Creating New Profile
-                        os.system('cls' if os.name == 'nt' else 'clear')
-                        print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
-                        print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
+                while True:
+                    #Function for option 1 - View/Manage Pet Profile
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
+                    sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
+                    match sub_menu_choice:
+                        case 1:
+                            #Function for View Existing
+                            pass
+                        case 2:
+                            #Function for Edit Existing
+                            pass
+                        case 3:
+                            #Function for Creating New Profile
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
+                            print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
 
-                        create_pet_profile()
-                    case 9:
-                        #Return to main menu
-                        continue
-                    case _:
-                        raise ValueError(f"Unknown input of {menu_choice} was provided for the View/Manage Pet profile menu.")
+                            temp_tuple = get_user_input(UserInput.CREATE_PROFILE)
+                            print(f"printing temp tuple: {temp_tuple}")
+                            input("Press Enter to continue...")
+
+                            #create_pet_profile()
+                        case 9:
+                            #Return to main menu
+                            break
+                        case _:
+                            raise ValueError(f"Unknown input of {menu_choice} was provided for the View/Manage Pet profile menu.")
             case 2:
                 #Function for option 2 - Food Logging
                 pass
