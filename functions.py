@@ -2,8 +2,9 @@ import json
 import os
 from constants import *
 from classes import *
+from random import randint
 
-def display_pet_profile_by_id(pet_id: str):
+def display_pet_profile_by_id(pet_id: str, config: str = None):
     if not pet_id.startswith("PT_"):
         print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
         return
@@ -12,54 +13,100 @@ def display_pet_profile_by_id(pet_id: str):
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
         
-        print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
+        if config == "short":
+            print(f"Pet ID: {pet_id} -> Name: {pets[pet_id]["name"]}, Type: {pets[pet_id]["type"]}, Age: {pets[pet_id]["age"]}, Gender: {pets[pet_id]["gender"]}, Color: {pets[pet_id]["color"]}")
+        else:
+            print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
+            #possible setting to add for config later, for now commenting out profile1
+            #pretty print profile1
+            # id = f"[ Pet Profile ID: {pet_id} ]"
+            # name = f"[ Pet Name: {pets[pet_id]["name"]} ]"
+            # type = f"[ Pet Type: {pets[pet_id]["type"]} ]"
+            # age = f"[ Pet Age: {pets[pet_id]["age"]} ]"
+            # gender = f"[ Pet Gender: {pets[pet_id]["gender"]} ]"
+            # color = f"[ Pet Color: {pets[pet_id]["color"]} ]"
+            # print(f"{id:{'-'}^50}")
+            # print(f"{name:{'-'}^50}")
+            # print(f"{type:{'-'}^50}")
+            # print(f"{age:{'-'}^50}")
+            # print(f"{gender:{'-'}^50}")
+            # print(f"{color:{'-'}^50}")
 
-        #possible setting to add for config later, for now commenting out profile1
-        #pretty print profile1
-        # id = f"[ Pet Profile ID: {pet_id} ]"
-        # name = f"[ Pet Name: {pets[pet_id]["name"]} ]"
-        # type = f"[ Pet Type: {pets[pet_id]["type"]} ]"
-        # age = f"[ Pet Age: {pets[pet_id]["age"]} ]"
-        # gender = f"[ Pet Gender: {pets[pet_id]["gender"]} ]"
-        # color = f"[ Pet Color: {pets[pet_id]["color"]} ]"
-        # print(f"{id:{'-'}^50}")
-        # print(f"{name:{'-'}^50}")
-        # print(f"{type:{'-'}^50}")
-        # print(f"{age:{'-'}^50}")
-        # print(f"{gender:{'-'}^50}")
-        # print(f"{color:{'-'}^50}")
-
-        #pretty print profile2
-        print()
-        id = f"[ Pet Profile ID: {pet_id} ]"
-        name = f"[ Pet Name      : {pets[pet_id]["name"]} ]"
-        type = f"[ Pet Type      : {pets[pet_id]["type"]} ]"
-        age = f"[ Pet Age       : {pets[pet_id]["age"]} ]"
-        gender = f"[ Pet Gender    : {pets[pet_id]["gender"]} ]"
-        color = f"[ Pet Color     : {pets[pet_id]["color"]} ]"
-        print(f"{id:{'-'}<50}")
-        print(f"{name:{'-'}<50}")
-        print(f"{type:{'-'}<50}")
-        print(f"{age:{'-'}<50}")
-        print(f"{gender:{'-'}<50}")
-        print(f"{color:{'-'}<50}")
+            #pretty print profile2
+            print()
+            id = f"[ Pet Profile ID: {pet_id} ]"
+            name = f"[ Pet Name      : {pets[pet_id]["name"]} ]"
+            type = f"[ Pet Type      : {pets[pet_id]["type"]} ]"
+            age = f"[ Pet Age       : {pets[pet_id]["age"]} ]"
+            gender = f"[ Pet Gender    : {pets[pet_id]["gender"]} ]"
+            color = f"[ Pet Color     : {pets[pet_id]["color"]} ]"
+            print(f"{id:{'-'}<50}")
+            print(f"{name:{'-'}<50}")
+            print(f"{type:{'-'}<50}")
+            print(f"{age:{'-'}<50}")
+            print(f"{gender:{'-'}<50}")
+            print(f"{color:{'-'}<50}")
 
     except KeyError as ke:
         print(f"ERROR: Unable to find pet ID: {ke}!")
     except Exception as e:
         print(f"ERROR: {e}")
 
+def get_pet_profile_by_id(pet_id: str) -> PetProfile:
+    if not pet_id.startswith("PT_"):
+        print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
+        return
+    if not os.path.exists(TEST_FILE):
+        print("ERROR: Unable to find the pets.json file in this directory. Please create a pet profile first!")
+        return
+    try:
+        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            pets = json.load(read_file)
+            pet_count = int(pets["total_entries"])
+    except Exception as e:
+        print(f"ERROR: {e}")
+    
+    #Temp counting here until implemented in function validate_pet_profile
+    print(f"total entries: {pet_count}")
+    dic_length = len(pets)
+    print(f"pets length: {dic_length-1}")
+
+    return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
+
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
     pass
 
-def menu_get_pet_profiles():
-    #Get up to 5 pet profiles to display
+def menu_display_pet_profiles(num: int):
+    #Get up to num pet profiles to display
+    if not os.path.exists(TEST_FILE):
+        #TODO Display a demo or dummy profile <-------------------
+        pass
+    try:
+        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            pets = json.load(read_file)
+            pet_count = int(pets["total_entries"])
+    except Exception as e:
+        print(f"ERROR: {e}")
+
+    if pet_count >= num:
+        for i in range(num):
+            profile_id = randint(1, pet_count)
+            display_pet_profile_by_id(f"PT_{profile_id}", "short")
+    else:
+        profile_id = 1
+        for pet in pets:
+            display_pet_profile_by_id(f"PT_{profile_id}", "short")
+            profile_id += 1
+    #TODO Need to run more testing on this function <-------------------
+
+
+def validate_pet_entries():
+    #Check json data, loop through each entry and compare to the 'total_entries'. If they are not the same, update total entries then log out to a file that a discrepancy was found and corrected.
     pass
 
-#def create_pet_profile(name: str, type: str, age: int, gender: str, color: str):
 def create_pet_profile(pet: PetProfile):
     #Replace test file with prod file later
-    #TODO: Add special logic to look for and handle gaps in pet IDs. So after deletetion, we can have gaps if the delete was done anywhere but the last entry. Possibly add a new data member to the json file to store these gaps, then check that first for a free ID to assign back out.
+    #TODO: Add special logic to look for and handle gaps in pet IDs. So after deletetion, we can have gaps if the delete was done anywhere but the last entry. Possibly add a new data member to the json file to store these gaps, then check that first for a free ID to assign back out. <-------------------
 
     if not os.path.exists(TEST_FILE):
         empty_pets = {"total_entries": 0}
@@ -97,7 +144,6 @@ def delete_pet_profile_by_id(pet_id: str):
     if pet_id in pets:
         print("Pet Found!")
         pet_to_remove = pets[pet_id]
-        #TODO: Need function to display "cleaned" pet profile
         display_pet_profile_by_id(pet_id)
         confirm_delete = get_user_input(UserInput.DELETE_PROFILE)
         if confirm_delete == "y" or confirm_delete == "yes":
@@ -125,7 +171,7 @@ def get_user_input(text: UserInput) -> int | str:
                 choice = input(text.value)
             return int(choice)
         case UserInput.MANAGE_PETS:
-            valid_input = ["1", "2", "3", "9"]
+            valid_input = ["1", "2", "3", "4", "9"]
             choice = input(text.value)
             while choice not in valid_input:
                 choice = input(text.value)
