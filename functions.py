@@ -136,10 +136,14 @@ def get_user_input(text: UserInput) -> int | str:
                     name, type, age, gender, color = input(text.value).split()
                 except ValueError as ve:
                     print(f"Invalid Input Received: {ve}")
+                    valid_input.append(False)
                     continue
                 except Exception as e:
                     print(f"Unknown Error: {e}")
+                    valid_input.append(False)
                     continue
+                if not name:
+                    valid_input.append(False)
                 if type in [item.value for item in PetType]:
                     valid_input.append(True)
                 else:
@@ -161,11 +165,9 @@ def get_user_input(text: UserInput) -> int | str:
                 else:
                     print("Invalid color")
                     valid_input.append(False)
-                print(f"Valid Input: {valid_input}")
-            print(f"Valid Input: {valid_input}")
+            #     print(f"Valid Input(Inside loop): {valid_input}")
+            # print(f"Valid Input: {valid_input}")
             return name, type, age, gender, color
-                
-
         case UserInput.DELETE_PROFILE:
             valid_input = ["y", "yes", "n", "no"]
             choice = input(text.value).lower()
@@ -174,3 +176,12 @@ def get_user_input(text: UserInput) -> int | str:
             return choice
         case _:
             print("ERROR: Somehow we made it to the get_user_input function without a valid user input ENUM!")
+
+def display_valid_pet_inputs(void):
+
+    for line in GENDERS:
+        print(GENDERS[line])
+    for line in TYPES:
+        print(TYPES[line])
+    for line in COLORS:
+        print(COLORS[line])

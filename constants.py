@@ -46,3 +46,35 @@ class PetType(Enum):
     IGUANA = "Iguana"
     LIZARD = "Lizard"
     OTHER = "Other"
+
+GENDERS = {
+    1: "┌───────────────────┐",
+    2: "|   Valid Genders:  |",
+    3: "| 1. M              |",
+    4: "| 2. F              |",
+    5: "└───────────────────┘"
+}
+
+TYPES = {
+    1: "┌───────────────────────────────┐",
+    2: "|         Valid Types:          |",
+    3: "| 1. Dog          8. Fish       |",
+    4: "| 2. Cat          9. Snake      |",
+    5: "| 3. Bird         10. Turtle    |",
+    6: "| 4. Rabbit       11. Iguana    |",
+    7: "| 5. Hamster      12. Lizard    |",
+    8: "| 6. Ferret       13. Other     |",
+    9: "| 7. Guinea Pig                 |",
+    10: "└───────────────────────────────┘"
+}
+
+COLORS = {
+    1: "┌───────────────────────────────┐",
+    2: "|         Valid Colors:         |",
+    3: "| 1. Black        8. Other      |",
+    4: "| 2. Blue         9. Pink       |",
+    5: "| 3. Brown        10. Red       |",
+    6: "| 4. Green        11. White     |",
+    7: "| 5. Orange       12. Yellow    |",
+    8: "└───────────────────────────────┘"
+}

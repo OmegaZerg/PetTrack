@@ -34,7 +34,7 @@ def main():
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
                             print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
-
+                            display_valid_pet_inputs()
                             temp_tuple = get_user_input(UserInput.CREATE_PROFILE)
                             print(f"printing temp tuple: {temp_tuple}")
                             input("Press Enter to continue...")
