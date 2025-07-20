@@ -13,7 +13,7 @@ def display_pet_profile_by_id(pet_id: str):
         
         print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
 
-        #possible setting to add for coonfig later, for now commenting out profile1
+        #possible setting to add for config later, for now commenting out profile1
         #pretty print profile1
         # id = f"[ Pet Profile ID: {pet_id} ]"
         # name = f"[ Pet Name: {pets[pet_id]["name"]} ]"
@@ -122,7 +122,7 @@ def get_user_input(text: UserInput) -> int | str:
             while choice not in valid_input:
                 choice = input(text.value)
             return int(choice)
-        case UserInput.MANAGE_PETS_MENU:
+        case UserInput.MANAGE_PETS:
             valid_input = ["1", "2", "3", "9"]
             choice = input(text.value)
             while choice not in valid_input:

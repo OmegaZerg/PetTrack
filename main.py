@@ -9,8 +9,8 @@ def main():
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print("~~~~~~~~~~~~| Hello from Pet-Track! |~~~~~~~~~~~~~")
-        print("~~~~~~~~~~~~~~~~~~| Main Menu |~~~~~~~~~~~~~~~~~~~")
+        print(f"{MenuHeader.MAIN_1.value:{"~"}^50}")
+        print(f"{MenuHeader.MAIN_2.value:{"~"}^50}")
         #TODO: display existing profiles here (maximum of like 5?)
         menu_choice = get_user_input(UserInput.MAIN_MENU)
         print(f"You chose: {menu_choice}")
@@ -19,8 +19,8 @@ def main():
             case 1:
                 #Function for option 1 - View/Manage Pet Profile
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("~~~~~~~~~~~~| Pet Profile Management |~~~~~~~~~~~~")
-                sub_menu_choice = get_user_input(UserInput.MANAGE_PETS_MENU)
+                print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
+                sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
                 match sub_menu_choice:
                     case 1:
                         #Function for View Existing
@@ -30,7 +30,10 @@ def main():
                         pass
                     case 3:
                         #Function for Creating New Profile
-                        
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
+                        print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
+
                         create_pet_profile()
                     case 9:
                         #Return to main menu
@@ -53,11 +56,11 @@ def main():
                 raise ValueError(f"Unknown input of {menu_choice} was provided for the main menu.")
             
 
-    print("Testing create_pet_profile")
-    create_pet_profile("Lucky", "Dog", 2, "M", "Black")
+    # print("Testing create_pet_profile")
+    # create_pet_profile("Lucky", "Dog", 2, "M", "Black")
 
-    print("Testing delete_pet_profile_by_id")
-    delete_pet_profile_by_id("PT_2")
+    # print("Testing delete_pet_profile_by_id")
+    # delete_pet_profile_by_id("PT_2")
 
 if __name__ == "__main__":
     main()
