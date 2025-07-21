@@ -79,8 +79,12 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
 def menu_display_pet_profiles(num: int):
     #Get up to num pet profiles to display
     if not os.path.exists(TEST_FILE):
-        #TODO Display a demo or dummy profile <-------------------
-        pass
+        sample_1 = PetProfile("Lucky", "Dog", 4, "M", "Brown")
+        sample_2 = PetProfile("Lucy", "Cat", 8, "F", "Black")
+        print("Add pets by visiting the 'Create Pet Profile' menu. Showing samples:")
+        print(sample_1)
+        print(sample_2)
+        return
     try:
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
@@ -89,6 +93,7 @@ def menu_display_pet_profiles(num: int):
         print(f"ERROR: {e}")
 
     if pet_count >= num:
+        #TODO: Add logic so that if a pet profile has already been selected for display, it will not be selected again. <-------------------
         for i in range(num):
             profile_id = randint(1, pet_count)
             display_pet_profile_by_id(f"PT_{profile_id}", "short")
