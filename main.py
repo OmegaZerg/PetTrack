@@ -3,9 +3,24 @@ from constants import *
 import os
 
 def main():
-    
-    #Check settings
-
+    #TODO: Potentially add setting.json file to store user configured settings of the app? <-------------------
+    #Check settings func
+    generate_log(LogLevel.INFO, "main")
+    generate_log(LogLevel.WARNING, "main")
+    generate_log(LogLevel.ERROR, "main")
+    generate_log(LogLevel.CRITICAL, "main")
+    generate_log(LogLevel.INFO, "main")
+    generate_log(LogLevel.WARNING, "main")
+    generate_log(LogLevel.ERROR, "main")
+    generate_log(LogLevel.CRITICAL, "main")
+    generate_log(LogLevel.INFO, "main")
+    generate_log(LogLevel.WARNING, "main")
+    generate_log(LogLevel.ERROR, "main")
+    generate_log(LogLevel.CRITICAL, "main")
+    generate_log(LogLevel.INFO, "main")
+    generate_log(LogLevel.WARNING, "main")
+    generate_log(LogLevel.ERROR, "main")
+    generate_log(LogLevel.CRITICAL, "main")
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')

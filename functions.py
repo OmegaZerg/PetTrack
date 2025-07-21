@@ -3,6 +3,8 @@ import os
 from constants import *
 from classes import *
 from random import randint
+import logging
+logger = logging.getLogger(__name__)
 
 def display_pet_profile_by_id(pet_id: str, config: str = None):
     if not pet_id.startswith("PT_"):
@@ -57,20 +59,15 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
         print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
         return
     if not os.path.exists(TEST_FILE):
+        #TODO: Add logger event <-------------------
         print("ERROR: Unable to find the pets.json file in this directory. Please create a pet profile first!")
         return
     try:
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
-            pet_count = int(pets["total_entries"])
     except Exception as e:
         print(f"ERROR: {e}")
     
-    #Temp counting here until implemented in function validate_pet_profile
-    print(f"total entries: {pet_count}")
-    dic_length = len(pets)
-    print(f"pets length: {dic_length-1}")
-
     return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
@@ -107,11 +104,41 @@ def menu_display_pet_profiles(num: int):
 
 def validate_pet_entries():
     #Check json data, loop through each entry and compare to the 'total_entries'. If they are not the same, update total entries then log out to a file that a discrepancy was found and corrected.
-    pass
+    #TODO: Change this print statement to a log instead <-------------------
+    if not os.path.exists(TEST_FILE):
+        print("ERROR: Unable to find the pets.json file in this directory. Please create a pet profile first!")
+        generate_log()
+        return
+    try:
+        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            pets = json.load(read_file)
+    except Exception as e:
+        print(f"ERROR: {e}")
+    
+    pet_count = int(pets["total_entries"])
+    num_pets = len(pets) -1
+    if pet_count != num_pets:
+        #TODO: Logger <-------------------
+        print(f"ERROR: Entry count and pet profile count mis-match. Total entries was: {pet_count}, while number of pets is: {num_pets}!")
+        pets["total_entries"] = num_pets
+        try:
+            with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+                json.dump(pets, write_file, indent=4)
+        except Exception as e:
+            #TODO: Logger <-------------------
+            print(f"ERROR: {e}")
+            return
+        #TODO: Fix the issue
+    else:
+        #TODO: Log out that everything was good
+        pass
+
 
 def create_pet_profile(pet: PetProfile):
     #Replace test file with prod file later
     #TODO: Add special logic to look for and handle gaps in pet IDs. So after deletetion, we can have gaps if the delete was done anywhere but the last entry. Possibly add a new data member to the json file to store these gaps, then check that first for a free ID to assign back out. <-------------------
+
+    #TODO: Add try/except to file handling. THis is needed just in case something weird happens with the first exists check <-------------------
 
     if not os.path.exists(TEST_FILE):
         empty_pets = {"total_entries": 0}
@@ -237,3 +264,50 @@ def display_valid_pet_inputs():
         print(TYPES[line])
     for line in COLORS:
         print(COLORS[line])
+
+def generate_log(level: LogLevel, func_name: str):
+    #TODO: Have tempoarily have added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
+    if not os.path.exists("logs/"):
+        os.mkdir("logs/")
+        
+    logging.basicConfig(level=logging.INFO, filename=LOG_FILE, filemode="a", format="%(asctime)s - %(levelname)s - %(message)s")
+
+    #TODO: Log retention based on user configured setting. Default to 500. Any above the set limit will be truncated at the end of this function starting with the oldest logs.
+    match level.value:
+        case 0:
+            logger.info(f"TESTING LOG - {func_name}")
+        case 1:
+            logger.warning("TESTING WARNING LOG")
+        case 2:
+            logger.error("TESTING ERROR LOG")
+        case 3:
+            logger.critical("TESTING CRITICAL LOG")
+        case _:
+            print("Invalid logger level")
+            input("Press Enter to continue...")
+    
+    try:
+        with open(LOG_FILE, mode="r", encoding="utf-8") as read_file:
+            line_count = sum(1 for _ in read_file)
+    except Exception as e:
+        print(f"ERROR: Unable to open the log file. {e}")
+        return
+    
+    if line_count > TRUNCATE_LIMIT:
+        try:
+            with open(LOG_FILE, mode="r", encoding="utf-8") as file:
+                lines = file.readlines()
+                file.close()
+        except Exception as e:
+            print(f"ERROR: Unable to open the log file. {e}")
+        try:
+            truncated_file = [line for i, line in enumerate(lines) if i > line_count - TRUNCATE_LIMIT]
+            print(f"Truncated file: {truncated_file}")
+            with open(LOG_FILE, mode="w", encoding="utf-8") as file:
+                file.writelines(truncated_file)
+                file.close()
+        except Exception as e:
+            print(f"ERROR: Unable to truncate the log file. {e}")
+
+    print(f"Number of lines in the log file: {line_count}")
+    input("Press Enter to continue...")
