@@ -31,10 +31,14 @@ def main():
                     match sub_menu_choice:
                         case 1:
                             #Function for View Existing
-                            pass
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.VIEW_1.value:{"~"}^50}")
+                            input("Press Enter to continue...")
                         case 2:
                             #Function to Edit Existing
-                            pass
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
+                            input("Press Enter to continue...")
                         case 3:
                             #Create
                             os.system('cls' if os.name == 'nt' else 'clear')
@@ -46,9 +50,24 @@ def main():
                             input("New profile created successfully. Press Enter to continue...")
                         case 4:
                             #Delete
-                            print(get_pet_profile_by_id("PT_3"))
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.DELETE_1.value:{"~"}^50}")
+
+                            have_pet_id = get_user_input(UserInput.HAVE_PET_ID)
+                            match have_pet_id:
+                                case 1:
+                                    print("I have the pet id")
+                                    pet_id = get_user_input(UserInput.GET_PET_ID)
+                                case 2:
+                                    print("I do not have the pet id")
+                                    #TODO: Impliment search pets. Then we can delete pet_id below here <-------------------
+                                    pet_id = search_pets(name = "Lucky")
+                                case 9:
+                                    continue
+                            print("We made it to the end of the delete case statement")
+                            print(f"Petid: {pet_id}")
                             input("Press Enter to continue...")
-                            pass
+                            #delete_pet_profile_by_id(pet_id)
                         case 9:
                             #Return to main menu
                             break

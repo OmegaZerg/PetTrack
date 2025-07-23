@@ -72,7 +72,27 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
     return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
-    pass
+    if pet_id != "":
+        display_pet_profile_by_id(pet_id)
+    elif name != "":
+        try:
+            with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+                pets = json.load(read_file)
+            pet_list = []
+            for pet_id in pets:
+                if pets[pet_id].name == name:
+                    pet_list.append(pet_id)
+            for pet_id in pet_list:
+                display_pet_profile_by_id(pet_id, "Short")
+            input(f"Showing all pets with the name '{name}'. Press Enter to continue...")
+            #Could possibly return the pet_id in the future if needed?
+            return
+        except Exception as e:
+            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
+    elif type != "":
+        pass
+
+
 
 def menu_display_pet_profiles(num: int):
     #Get up to num pet profiles to display
@@ -188,7 +208,7 @@ def delete_pet_profile_by_id(pet_id: str):
         print("Pet Found!")
         pet_to_remove = pets[pet_id]
         display_pet_profile_by_id(pet_id)
-        confirm_delete = get_user_input(UserInput.DELETE_PROFILE)
+        confirm_delete = get_user_input(UserInput.CONFIRM_DELETE_PROFILE)
         if confirm_delete == "y" or confirm_delete == "yes":
             pets.pop(pet_id)
             pets["total_entries"] -= 1
@@ -213,6 +233,7 @@ def delete_pet_profile_by_id(pet_id: str):
 
     else:
         print(f"Unable to find Pet ID: {pet_id}. Delete operation canceled!")
+        input("Press Enter to continue...")
 
 
 def get_user_input(text: UserInput) -> int | str:
@@ -269,12 +290,23 @@ def get_user_input(text: UserInput) -> int | str:
             #     print(f"Valid Input(Inside loop): {valid_input}")
             # print(f"Valid Input: {valid_input}") 
             return PetProfile(name, type, age, gender, color)
-        case UserInput.DELETE_PROFILE:
+        case UserInput.CONFIRM_DELETE_PROFILE:
             valid_input = ["y", "yes", "n", "no"]
             choice = input(text.value).lower()
             while choice not in valid_input:
                 choice = input(text.value)
             return choice
+        case UserInput.HAVE_PET_ID:
+            valid_input = ["1", "2", "9"]
+            choice = input(text.value).lower()
+            while choice not in valid_input:
+                choice = input(text.value)
+            return int(choice)
+        case UserInput.GET_PET_ID:
+            choice = input(text.value)
+            while not choice.isnumeric():
+                choice = input(text.value)
+            return f"PT_{choice}"
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 

@@ -1,5 +1,5 @@
 {
-    "total_entries": 32,
+    "total_entries": 31,
     "PT_1": {
         "name": "Lucky",
         "type": "Dog",
@@ -8,13 +8,6 @@
         "color": "Black"
     },
     "PT_3": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_4": {
         "name": "Lucky",
         "type": "Dog",
         "age": 2,
@@ -216,5 +209,12 @@
         "age": 3,
         "gender": "M",
         "color": "Black"
+    },
+    "PT_33": {
+        "name": "Lucky",
+        "type": "Dog",
+        "age": 8,
+        "gender": "F",
+        "color": "White"
     }
 }
