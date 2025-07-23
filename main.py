@@ -5,28 +5,15 @@ import os
 def main():
     #TODO: Potentially add setting.json file to store user configured settings of the app? <-------------------
     #Check settings func
-    generate_log(LogLevel.INFO, "main")
-    generate_log(LogLevel.WARNING, "main")
-    generate_log(LogLevel.ERROR, "main")
-    generate_log(LogLevel.CRITICAL, "main")
-    generate_log(LogLevel.INFO, "main")
-    generate_log(LogLevel.WARNING, "main")
-    generate_log(LogLevel.ERROR, "main")
-    generate_log(LogLevel.CRITICAL, "main")
-    generate_log(LogLevel.INFO, "main")
-    generate_log(LogLevel.WARNING, "main")
-    generate_log(LogLevel.ERROR, "main")
-    generate_log(LogLevel.CRITICAL, "main")
-    generate_log(LogLevel.INFO, "main")
-    generate_log(LogLevel.WARNING, "main")
-    generate_log(LogLevel.ERROR, "main")
-    generate_log(LogLevel.CRITICAL, "main")
+    generate_log(LogLevel.INFO, "Friendly informational message", "main")
+    generate_log(LogLevel.WARNING, "Something may have gone wrong", "test")
+    generate_log(LogLevel.ERROR, "Uh oh, something bad happened", "module2")
+    generate_log(LogLevel.CRITICAL, "We dont want to see these", "main")
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(f"{MenuHeader.MAIN_1.value:{"~"}^50}")
         print(f"{MenuHeader.MAIN_2.value:{"~"}^50}")
-        #TODO: display existing profiles here (maximum of like 5?) <-------------------
         menu_choice = get_user_input(UserInput.MAIN_MENU)
         print(f"You chose: {menu_choice}")
 
@@ -38,7 +25,7 @@ def main():
                     print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
                     print(f"{MenuHeader.PROF_MGMNT_2.value:{"~"}^50}")
                     print()
-                    menu_display_pet_profiles(3) #TODO - need to implement function <-------------------
+                    menu_display_pet_profiles(3)
                     print()
                     sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
                     match sub_menu_choice:
@@ -82,12 +69,6 @@ def main():
             case _:
                 raise ValueError(f"Unknown input of {menu_choice} was provided for the main menu.")
             
-
-    # print("Testing create_pet_profile")
-    # create_pet_profile("Lucky", "Dog", 2, "M", "Black")
-
-    # print("Testing delete_pet_profile_by_id")
-    # delete_pet_profile_by_id("PT_2")
 
 if __name__ == "__main__":
     main()

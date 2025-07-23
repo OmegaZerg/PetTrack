@@ -1,7 +1,3 @@
-2025-07-21 16:52:58,855 - WARNING - TESTING WARNING LOG
-2025-07-21 16:52:59,912 - ERROR - TESTING ERROR LOG
-2025-07-21 16:53:00,738 - CRITICAL - TESTING CRITICAL LOG
-2025-07-21 17:02:13,263 - INFO - TESTING LOG - main
 2025-07-21 17:02:15,122 - WARNING - TESTING WARNING LOG
 2025-07-21 17:02:15,353 - ERROR - TESTING ERROR LOG
 2025-07-21 17:02:15,578 - CRITICAL - TESTING CRITICAL LOG
@@ -17,3 +13,19 @@
 2025-07-21 17:02:17,609 - WARNING - TESTING WARNING LOG
 2025-07-21 17:02:17,821 - ERROR - TESTING ERROR LOG
 2025-07-21 17:02:18,025 - CRITICAL - TESTING CRITICAL LOG
+2025-07-23 05:23:32,177 - INFO - Friendly informational message - main
+2025-07-23 05:23:32,177 - WARNING - Something may have gone wrong - test
+2025-07-23 05:23:32,177 - ERROR - Uh oh, something bad happened - module2
+2025-07-23 05:23:32,177 - CRITICAL - We dont want to see these - main
+2025-07-23 06:43:00,896 - INFO - Friendly informational message - main
+2025-07-23 06:43:00,896 - WARNING - Something may have gone wrong - test
+2025-07-23 06:43:00,896 - ERROR - Uh oh, something bad happened - module2
+2025-07-23 06:43:00,896 - CRITICAL - We dont want to see these - main
+2025-07-23 06:59:20,644 - INFO - Friendly informational message - main
+2025-07-23 06:59:20,644 - WARNING - Something may have gone wrong - test
+2025-07-23 06:59:20,644 - ERROR - Uh oh, something bad happened - module2
+2025-07-23 06:59:20,645 - CRITICAL - We dont want to see these - main
+2025-07-23 07:31:07,623 - INFO - Friendly informational message - main
+2025-07-23 07:31:07,623 - WARNING - Something may have gone wrong - test
+2025-07-23 07:31:07,623 - ERROR - Uh oh, something bad happened - module2
+2025-07-23 07:31:07,623 - CRITICAL - We dont want to see these - main

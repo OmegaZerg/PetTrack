@@ -3,7 +3,7 @@ from enum import Enum
 TEST_FILE = "pets_test.json"
 PROD_FILE = "pets.json"
 LOG_FILE = "logs/Pet_Track.log"
-TRUNCATE_LIMIT = 20
+TRUNCATE_LIMIT = 500
 
 class MenuHeader(Enum):
     MAIN_1 = "| Hello from Pet-Track! |"
