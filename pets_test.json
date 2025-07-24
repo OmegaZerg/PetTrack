@@ -1,220 +1,34 @@
 {
-    "total_entries": 31,
+    "total_entries": 4,
+    "empty_slots": [
+        "PT_6"
+    ],
     "PT_1": {
         "name": "Lucky",
         "type": "Dog",
-        "age": 2,
+        "age": 3,
         "gender": "M",
         "color": "Black"
     },
     "PT_3": {
         "name": "Lucky",
         "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_5": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_6": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_7": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_8": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_9": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_10": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_11": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_12": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_13": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_14": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_15": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_16": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_17": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_18": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_19": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_20": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_21": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_22": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_23": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_24": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_25": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_26": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_27": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 2,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_28": {
-        "name": "Lucky",
-        "type": "Dog",
         "age": 3,
         "gender": "M",
         "color": "Black"
     },
-    "PT_29": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 3,
+    "PT_4": {
+        "name": "Stimpy",
+        "type": "Cat",
+        "age": 7,
         "gender": "M",
-        "color": "Black"
+        "color": "Red"
     },
-    "PT_30": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 3,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_31": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 3,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_32": {
-        "name": "Lucky",
-        "type": "Dog",
-        "age": 3,
-        "gender": "M",
-        "color": "Black"
-    },
-    "PT_33": {
-        "name": "Lucky",
+    "PT_2": {
+        "name": "Ren",
         "type": "Dog",
         "age": 8,
-        "gender": "F",
-        "color": "White"
+        "gender": "M",
+        "color": "Pink"
     }
 }

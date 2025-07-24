@@ -5,17 +5,12 @@ import os
 def main():
     #TODO: Potentially add setting.json file to store user configured settings of the app? <-------------------
     #Check settings func
-    generate_log(LogLevel.INFO, "Friendly informational message", "main")
-    generate_log(LogLevel.WARNING, "Something may have gone wrong", "test")
-    generate_log(LogLevel.ERROR, "Uh oh, something bad happened", "module2")
-    generate_log(LogLevel.CRITICAL, "We dont want to see these", "main")
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(f"{MenuHeader.MAIN_1.value:{"~"}^50}")
         print(f"{MenuHeader.MAIN_2.value:{"~"}^50}")
         menu_choice = get_user_input(UserInput.MAIN_MENU)
-        print(f"You chose: {menu_choice}")
 
         match menu_choice:
             case 1:
@@ -64,10 +59,10 @@ def main():
                                     pet_id = search_pets(name = "Lucky")
                                 case 9:
                                     continue
-                            print("We made it to the end of the delete case statement")
-                            print(f"Petid: {pet_id}")
-                            input("Press Enter to continue...")
-                            #delete_pet_profile_by_id(pet_id)
+                            # print("We made it to the end of the delete case statement")
+                            # print(f"Petid: {pet_id}")
+                            # input("Press Enter to continue...")
+                            delete_pet_profile_by_id(pet_id)
                         case 9:
                             #Return to main menu
                             break

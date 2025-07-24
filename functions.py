@@ -72,6 +72,7 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
     return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
+    #TODO: Lots of stuff left here. Handle last elif, then we will have to build out menus or something to ask them what they want to search by and then to enter input to search on <-------------------
     if pet_id != "":
         display_pet_profile_by_id(pet_id)
     elif name != "":
@@ -120,7 +121,7 @@ def menu_display_pet_profiles(num: int):
             display_pet_profile_by_id(f"PT_{profile_id}", "short")
     else:
         profile_id = 1
-        for pet in pets:
+        for pet in range(len(pets) - 2):
             display_pet_profile_by_id(f"PT_{profile_id}", "short")
             profile_id += 1
     #TODO Need to run more testing on this function <-------------------
@@ -138,7 +139,7 @@ def validate_pet_entries():
             generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "validate_pet_entries")
     
     pet_count = int(pets["total_entries"])
-    num_pets = len(pets) -1
+    num_pets = len(pets) -2
     if pet_count != num_pets:
         generate_log(LogLevel.WARNING, f"Entry count and pet profile count mis-match. Total entries was: {pet_count}, while number of pets is: {num_pets}!", "validate_pet_entries")
         pets["total_entries"] = num_pets
@@ -148,7 +149,6 @@ def validate_pet_entries():
         except Exception as e:
             generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "validate_pet_entries")
             return
-        #TODO: Fix the issue <-------------------
     else:
         generate_log(LogLevel.INFO, "pets.json file integrity validated, no correction required.", "validate_pet_entries")
     #TODO: Sweep process: check for empty slots and append to list in json file. Check that empty_slots exists, if not then add to json file. Append any empty slots to the list if they arent already in there. <-------------------
@@ -180,9 +180,12 @@ def create_pet_profile(pet: PetProfile):
             pet_count = int(pets["total_entries"])
     except Exception as e:
         generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "create_pet_profile")
-
     new_pet_count = pet_count + 1
-    new_pet_id = f"PT_{new_pet_count}"
+
+    if len(pets["empty_slots"]) > 0:
+        new_pet_id = pets["empty_slots"].pop(0)
+    else:
+        new_pet_id = f"PT_{new_pet_count}"
 
     try:
         with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
@@ -195,12 +198,14 @@ def create_pet_profile(pet: PetProfile):
     display_pet_profile_by_id(new_pet_id)
 
 def delete_pet_profile_by_id(pet_id: str):
+    #TODO: Seems like this function is not properly decrementing the 'total_entries' field in the pets_test.json file. Need further testing.
     if not os.path.exists(TEST_FILE):
         generate_log(LogLevel.ERROR, f"File path to pets data does not exist. Unable to delete Pet ID: {pet_id}", "delete_pet_profile_by_id")
         raise Exception(f"ERROR: File path to pets data does not exist. Unable to delete Pet ID: {pet_id}")
     try:
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
+            pet_count = int(pets["total_entries"])
     except Exception as e:
         generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
 
@@ -211,7 +216,9 @@ def delete_pet_profile_by_id(pet_id: str):
         confirm_delete = get_user_input(UserInput.CONFIRM_DELETE_PROFILE)
         if confirm_delete == "y" or confirm_delete == "yes":
             pets.pop(pet_id)
-            pets["total_entries"] -= 1
+            new_pet_count = pet_count - 1
+            pets["total_entries"] = new_pet_count
+            pets["empty_slots"].append(pet_id)
             try:
                 with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
                     json.dump(pets, write_file, indent=4)
@@ -320,8 +327,8 @@ def display_valid_pet_inputs():
 
 def generate_log(level: LogLevel, log_message: str, func_name: str):
     #TODO: Have tempoarily have added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
-    if not os.path.exists("logs/"):
-        os.mkdir("logs/")
+    if not os.path.exists(LOG_FILE):
+        os.mkdir(LOG_FILE)
         
     logging.basicConfig(level=logging.INFO, filename=LOG_FILE, filemode="a", format="%(asctime)s - %(levelname)s - %(message)s")
 
