@@ -1,2 +1,13 @@
 2025-07-24 07:52:12,995 - WARNING - Entry count and pet profile count mis-match. Total entries was: 5, while number of pets is: 4! - validate_pet_entries
 2025-07-24 07:53:44,597 - INFO - pets.json file integrity validated, no correction required. - validate_pet_entries
+2025-07-24 08:54:20,826 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 08:59:00,719 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:00:54,740 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:02:28,478 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:04:55,092 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:07:06,478 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:08:30,997 - ERROR - Unable to open pets_test.json: 'int' object has no attribute 'name' - search_pets
+2025-07-24 09:12:06,457 - ERROR - Unable to open pets_test.json: 'dict' object has no attribute 'name' - search_pets
+2025-07-24 09:14:25,648 - ERROR - Unable to open pets_test.json: 'dict' object has no attribute 'name' - search_pets
+2025-07-24 09:26:40,222 - ERROR - Unable to open pets_test.json: 'int' object is not subscriptable - search_pets
+2025-07-24 09:29:39,200 - ERROR - Unable to open pets_test.json: 'int' object is not subscriptable - search_pets

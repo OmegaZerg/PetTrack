@@ -22,8 +22,9 @@ class UserInput(Enum):
     CREATE_PROFILE = "To create a new pet profile, enter 5 values separated by spaces in the following order. (Also reference the above template under this menu's header): Animal_Name | Type | Age | Gender | Color\n"
     CONFIRM_DELETE_PROFILE = "Are you sure you wish to delete the above pet profile?\nType 'Y or Yes' to confirm deletetion, type 'N or No' to abort deletion and keep this pet profile.\n"
     GET_PET_ID = "Please enter only the numeric portion of the pet ID.'\nPT_"
-    GET_PET_NAME = ""
-    GET_PET_TYPE = ""
+    SEARCH = "Would you like to search pets by Name or Type? Select 1 or 2:\n1. Search by Name\n2. Search by Type\n"
+    GET_PET_NAME = "Please enter a pet name you would like to search:\n"
+    GET_PET_TYPE = "Please enter a pet type you would like to search:\n"
     HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to delete? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
    
 

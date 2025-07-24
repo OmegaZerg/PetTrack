@@ -55,8 +55,25 @@ def main():
                                     pet_id = get_user_input(UserInput.GET_PET_ID)
                                 case 2:
                                     print("I do not have the pet id")
-                                    #TODO: Impliment search pets. Then we can delete pet_id below here <-------------------
-                                    pet_id = search_pets(name = "Lucky")
+                                    #TODO: Impliment search pets.
+                                    search_method = get_user_input(UserInput.SEARCH)
+                                    match search_method:
+                                        case 1:
+                                            pet_name = get_user_input(UserInput.GET_PET_NAME)
+                                            #Currently not returning anything, sending back to menu instead
+                                            pet_id = search_pets(name = pet_name)
+                                            continue
+                                        case 2:
+                                            print("Valid Pet Types:")
+                                            for line in TYPES:
+                                                print(TYPES[line])
+                                            pet_type = get_user_input(UserInput.GET_PET_TYPE)
+                                            #Currently not returning anything, sending back to menu instead
+                                            pet_id = search_pets(type = pet_type)
+                                            continue
+                                        case _:
+                                            raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")
+                                    
                                 case 9:
                                     continue
                             delete_pet_profile_by_id(pet_id)

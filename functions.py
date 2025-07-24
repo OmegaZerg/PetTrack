@@ -18,7 +18,7 @@ def display_pet_profile_by_id(pet_id: str, config: str = None):
         if config == "short":
             print(f"Pet ID: {pet_id} -> Name: {pets[pet_id]["name"]}, Type: {pets[pet_id]["type"]}, Age: {pets[pet_id]["age"]}, Gender: {pets[pet_id]["gender"]}, Color: {pets[pet_id]["color"]}")
         else:
-            print(f"-----| Displaying pet profile for ID: {pet_id} |-----\n")
+            print(f"\n-----| Displaying pet profile for ID: {pet_id} |-----\n")
             #possible setting to add for config later, for now commenting out profile1
             #pretty print profile1
             # id = f"[ Pet Profile ID: {pet_id} ]"
@@ -73,6 +73,7 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
     #TODO: Lots of stuff left here. Handle last elif, then we will have to build out menus or something to ask them what they want to search by and then to enter input to search on <-------------------
+    print("Searching pets...")
     if pet_id != "":
         display_pet_profile_by_id(pet_id)
     elif name != "":
@@ -81,18 +82,34 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
                 pets = json.load(read_file)
             pet_list = []
             for pet_id in pets:
-                if pets[pet_id].name == name:
+                if not pet_id.startswith("PT_"):
+                    continue
+                if pets[pet_id]["name"] == name:
                     pet_list.append(pet_id)
             for pet_id in pet_list:
                 display_pet_profile_by_id(pet_id, "Short")
-            input(f"Showing all pets with the name '{name}'. Press Enter to continue...")
+            input(f"\nShowing all pets with the name '{name}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to continue...")
             #Could possibly return the pet_id in the future if needed?
             return
         except Exception as e:
             generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
     elif type != "":
-        pass
-
+        try:
+            with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+                pets = json.load(read_file)
+            pet_list = []
+            for pet_id in pets:
+                if not pet_id.startswith("PT_"):
+                    continue
+                if pets[pet_id]["type"] == type:
+                    pet_list.append(pet_id)
+            for pet_id in pet_list:
+                display_pet_profile_by_id(pet_id, "Short")
+            input(f"\nShowing all pets with the type '{type}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to continue...")
+            #Could possibly return the pet_id in the future if needed?
+            return
+        except Exception as e:
+            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
 
 
 def menu_display_pet_profiles(num: int):
@@ -303,6 +320,22 @@ def get_user_input(text: UserInput) -> int | str:
             while not choice.isnumeric():
                 choice = input(text.value)
             return f"PT_{choice}"
+        case UserInput.SEARCH:
+            valid_input = ["1", "2"]
+            choice = input(text.value)
+            while choice not in valid_input:
+                choice = input(text.value)
+            return int(choice)
+        case UserInput.GET_PET_NAME:
+            name = input(text.value)
+            while not name:
+                name = input(text.value)
+            return name
+        case UserInput.GET_PET_TYPE:
+            type = input(text.value)
+            while type not in [item.value for item in PetType]:
+                type = input(text.value)
+            return type
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 
