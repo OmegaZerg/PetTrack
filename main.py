@@ -59,9 +59,6 @@ def main():
                                     pet_id = search_pets(name = "Lucky")
                                 case 9:
                                     continue
-                            # print("We made it to the end of the delete case statement")
-                            # print(f"Petid: {pet_id}")
-                            # input("Press Enter to continue...")
                             delete_pet_profile_by_id(pet_id)
                         case 9:
                             #Return to main menu

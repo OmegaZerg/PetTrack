@@ -128,7 +128,6 @@ def menu_display_pet_profiles(num: int):
 
 
 def validate_pet_entries():
-    #Check json data, loop through each entry and compare to the 'total_entries'. If they are not the same, update total entries then log out to a file that a discrepancy was found and corrected.
     if not os.path.exists(TEST_FILE):
         generate_log(LogLevel.CRITICAL, "Unable to find JSON pet data file during validation of pet entries.", "validate_pet_entries")
         return
@@ -151,14 +150,9 @@ def validate_pet_entries():
             return
     else:
         generate_log(LogLevel.INFO, "pets.json file integrity validated, no correction required.", "validate_pet_entries")
-    #TODO: Sweep process: check for empty slots and append to list in json file. Check that empty_slots exists, if not then add to json file. Append any empty slots to the list if they arent already in there. <-------------------
-    #TODO: Once that is in place, need to add a check for empty slots into create_pet_profile to use empty slots before generating a new ID. <-------------------
 
 
 def create_pet_profile(pet: PetProfile):
-    #Replace test file with prod file later
-    #TODO: Add special logic to look for and handle gaps in pet IDs. So after deletetion, we can have gaps if the delete was done anywhere but the last entry. Possibly add a new data member to the json file to store these gaps, then check that first for a free ID to assign back out. <-------------------
-
     if not os.path.exists(TEST_FILE):
         empty_pets = {"total_entries": 0, "empty_slots": []}
         try:
@@ -186,7 +180,6 @@ def create_pet_profile(pet: PetProfile):
         new_pet_id = pets["empty_slots"].pop(0)
     else:
         new_pet_id = f"PT_{new_pet_count}"
-
     try:
         with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
             pets["total_entries"] = new_pet_count
@@ -198,7 +191,6 @@ def create_pet_profile(pet: PetProfile):
     display_pet_profile_by_id(new_pet_id)
 
 def delete_pet_profile_by_id(pet_id: str):
-    #TODO: Seems like this function is not properly decrementing the 'total_entries' field in the pets_test.json file. Need further testing.
     if not os.path.exists(TEST_FILE):
         generate_log(LogLevel.ERROR, f"File path to pets data does not exist. Unable to delete Pet ID: {pet_id}", "delete_pet_profile_by_id")
         raise Exception(f"ERROR: File path to pets data does not exist. Unable to delete Pet ID: {pet_id}")
@@ -235,7 +227,6 @@ def delete_pet_profile_by_id(pet_id: str):
                 generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
             print(f"Pet with ID: {pet_id} was not deleted.")
             input("Press Enter to continue...")
-        #TODO: Added to end of function, need to test that this works <-------------------
         validate_pet_entries()
 
     else:
@@ -294,8 +285,6 @@ def get_user_input(text: UserInput) -> int | str:
                 else:
                     print("Invalid color")
                     valid_input.append(False)
-            #     print(f"Valid Input(Inside loop): {valid_input}")
-            # print(f"Valid Input: {valid_input}") 
             return PetProfile(name, type, age, gender, color)
         case UserInput.CONFIRM_DELETE_PROFILE:
             valid_input = ["y", "yes", "n", "no"]
@@ -326,7 +315,7 @@ def display_valid_pet_inputs():
         print(COLORS[line])
 
 def generate_log(level: LogLevel, log_message: str, func_name: str):
-    #TODO: Have tempoarily have added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
+    #TODO: Have tempoarily added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
     if not os.path.exists(LOG_FILE):
         os.mkdir(LOG_FILE)
         
