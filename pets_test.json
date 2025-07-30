@@ -1,8 +1,6 @@
 {
-    "total_entries": 4,
-    "empty_slots": [
-        "PT_6"
-    ],
+    "total_entries": 5,
+    "empty_slots": [],
     "PT_1": {
         "name": "Lucky",
         "type": "Dog",
@@ -30,5 +28,12 @@
         "age": 8,
         "gender": "M",
         "color": "Pink"
+    },
+    "PT_6": {
+        "name": "Steve",
+        "type": "Cat",
+        "age": 2,
+        "gender": "M",
+        "color": "White"
     }
 }

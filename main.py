@@ -13,6 +13,7 @@ def main():
         menu_choice = get_user_input(UserInput.MAIN_MENU)
 
         match menu_choice:
+            #Pet Management
             case 1:
                 while True:
                     #Main Menu option 1 - View/Manage Pet Profile
@@ -28,11 +29,13 @@ def main():
                             #Function for View Existing
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.VIEW_1.value:{"~"}^50}")
+                            #TODO: Build menu/options
                             input("Press Enter to continue...")
                         case 2:
                             #Function to Edit Existing
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
+                            #TODO: Build menu/options
                             input("Press Enter to continue...")
                         case 3:
                             #Create
@@ -47,15 +50,11 @@ def main():
                             #Delete
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.DELETE_1.value:{"~"}^50}")
-
                             have_pet_id = get_user_input(UserInput.HAVE_PET_ID)
                             match have_pet_id:
                                 case 1:
-                                    print("I have the pet id")
                                     pet_id = get_user_input(UserInput.GET_PET_ID)
                                 case 2:
-                                    print("I do not have the pet id")
-                                    #TODO: Impliment search pets.
                                     search_method = get_user_input(UserInput.SEARCH)
                                     match search_method:
                                         case 1:
@@ -72,8 +71,7 @@ def main():
                                             pet_id = search_pets(type = pet_type)
                                             continue
                                         case _:
-                                            raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")
-                                    
+                                            raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")    
                                 case 9:
                                     continue
                             delete_pet_profile_by_id(pet_id)

@@ -24,7 +24,7 @@ class UserInput(Enum):
     GET_PET_ID = "Please enter only the numeric portion of the pet ID.'\nPT_"
     SEARCH = "Would you like to search pets by Name or Type? Select 1 or 2:\n1. Search by Name\n2. Search by Type\n"
     GET_PET_NAME = "Please enter a pet name you would like to search:\n"
-    GET_PET_TYPE = "Please enter a pet type you would like to search:\n"
+    GET_PET_TYPE = "Please enter a pet type you would like to search(This is case-sensitive):\n"
     HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to delete? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
    
 
