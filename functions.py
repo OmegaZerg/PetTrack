@@ -403,11 +403,15 @@ def get_user_input(text: UserInput) -> int | str:
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 
-def display_valid_pet_inputs():
+def display_valid_pet_genders():
     for line in GENDERS:
         print(GENDERS[line])
+
+def display_valid_pet_types():
     for line in TYPES:
         print(TYPES[line])
+
+def display_valid_pet_colors():
     for line in COLORS:
         print(COLORS[line])
 

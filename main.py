@@ -58,10 +58,10 @@ def main():
                                 case 9:
                                     continue
                         case 2:
-                            #Function to Edit Existing
+                            #Edit
+                            #TODO: edit menu needs more testing
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
-                            #TODO: Build menu/options
                             have_pet_id = get_user_input(UserInput.HAVE_PET_ID)
                             match have_pet_id:
                                 case 1:
@@ -83,8 +83,8 @@ def main():
                                             edit_pet_profile_by_id(pet_id, pet)
                                         case 2:
                                             #Type
-                                            #TODO: Display valid types
                                             os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_valid_pet_types()
                                             display_pet_profile_by_id(pet_id)
                                             print(f"Editing Type for Pet Profile '{pet_id}'. ", end="")
                                             updated_type = get_user_input(UserInput.EDIT_PROFILE_TYPE)
@@ -102,8 +102,8 @@ def main():
                                             edit_pet_profile_by_id(pet_id, pet)
                                         case 4:
                                             #Gender
-                                            #TODO: Display valid genders
                                             os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_valid_pet_genders()
                                             display_pet_profile_by_id(pet_id)
                                             print(f"Editing Gender for Pet Profile '{pet_id}'. ", end="")
                                             updated_gender = get_user_input(UserInput.EDIT_PROFILE_GENDER)
@@ -112,8 +112,8 @@ def main():
                                             edit_pet_profile_by_id(pet_id, pet)
                                         case 5:
                                             #Color
-                                            #TODO: Display valid colors
                                             os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_valid_pet_colors()
                                             display_pet_profile_by_id(pet_id)
                                             print(f"Editing Color for Pet Profile '{pet_id}'. ", end="")
                                             updated_color = get_user_input(UserInput.EDIT_PROFILE_COLOR)
@@ -148,7 +148,9 @@ def main():
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.CREATE_1.value:{"~"}^50}")
                             print(f"{MenuHeader.CREATE_2.value:{"~"}^50}")
-                            display_valid_pet_inputs()
+                            display_valid_pet_genders()
+                            display_valid_pet_types()
+                            display_valid_pet_colors()
                             temp_pet_object = get_user_input(UserInput.CREATE_PROFILE)
                             create_pet_profile(temp_pet_object)
                             input("New profile created successfully. Press Enter to continue...")
