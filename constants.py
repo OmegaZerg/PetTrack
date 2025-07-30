@@ -1,20 +1,27 @@
 from enum import Enum
 
 TEST_FILE = "pets_test.json"
-PROD_FILE = "pets.json"
+PROD_FILE = "data/pets.json"
+LOG_PATH = "logs/"
 LOG_FILE = "logs/Pet_Track.log"
+BLOG_PATH = "data/"
+BLOG_FILE = "data/blog.json"
 TRUNCATE_LIMIT = 500
 
 class MenuHeader(Enum):
     MAIN_1 = "| Hello from Pet-Track! |"
     MAIN_2 = "| Main Menu |"
-    PROF_MGMNT = "| Pet Profile Management |"
+    PROF_MGMNT_1 = "| Pet Profile Management |"
     PROF_MGMNT_2 = "< Existing Pets >"
     CREATE_1 = "| Create Pet Profile |"
     CREATE_2 = "/Ex: Lucky Dog 4 M Black\\"
     DELETE_1 = "| Delete Pet Profile |"
     EDIT_1 = "| Edit Pet Profile |"
     VIEW_1 = "| View Pet Profile |"
+    FOOD_LOG_1 = "| Pet Nutrition |"
+    REMINDERS_1 = "| Pet Reminders |"
+    BLOG_1 = "| Your Blog |"
+    BLOG_2 = "< Most Recent Blog >"
 
 class UserInput(Enum):
     MAIN_MENU = "Please select from one of the following options:\n1. View/Manage pet profiles\n2. View/Manage mealtime data\n3. View/Manage reminders\n4. View blog\n9. Exit Pet_track\n"

@@ -1,4 +1,5 @@
 from functions import *
+from blog_functions import *
 from constants import *
 import os
 
@@ -13,12 +14,11 @@ def main():
         menu_choice = get_user_input(UserInput.MAIN_MENU)
 
         match menu_choice:
-            #Pet Management
             case 1:
                 while True:
                     #Main Menu option 1 - View/Manage Pet Profile
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    print(f"{MenuHeader.PROF_MGMNT.value:{"~"}^50}")
+                    print(f"{MenuHeader.PROF_MGMNT_1.value:{"~"}^50}")
                     print(f"{MenuHeader.PROF_MGMNT_2.value:{"~"}^50}")
                     print()
                     menu_display_pet_profiles(3)
@@ -191,14 +191,23 @@ def main():
                         case _:
                             raise ValueError(f"Unknown input of {sub_menu_choice} was provided for the View/Manage Pet profile menu.")
             case 2:
-                #Function for option 2 - Food Logging
-                pass
+                #Main Menu option 2 - Food Logging
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print(f"{MenuHeader.FOOD_LOG_1.value:{"~"}^50}")
+                input("Press Enter to continue...")
             case 3:
-                #Function for option 3 - Reminders
-                pass
+                #Main Menu option 3 - Reminders
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print(f"{MenuHeader.REMINDERS_1.value:{"~"}^50}")
+                input("Press Enter to continue...")
             case 4:
-                #Function for option 4 - Blog
-                pass
+                #Main Menu option 4 - Blog
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print(f"{MenuHeader.BLOG_1.value:{"~"}^50}")
+                print(f"{MenuHeader.BLOG_2.value:{"~"}^50}")
+                #TODO: Testing new get_blogs function
+                get_blogs("top_1")
+                input("Press Enter to continue...")
             case 9:
                 print("Closing Pet_Track.")
                 break

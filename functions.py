@@ -417,8 +417,8 @@ def display_valid_pet_colors():
 
 def generate_log(level: LogLevel, log_message: str, func_name: str):
     #TODO: Have tempoarily added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
-    if not os.path.exists(LOG_FILE):
-        os.mkdir(LOG_FILE)
+    if not os.path.exists(LOG_PATH):
+        os.mkdir(LOG_PATH)
         
     logging.basicConfig(level=logging.INFO, filename=LOG_FILE, filemode="a", format="%(asctime)s - %(levelname)s - %(message)s")
 
