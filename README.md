@@ -32,3 +32,4 @@ App to help track and manage pets! An overview of features are listed below.
 ## Completed Tasks
 - Create pet profile
 - Delete pet profile
+- View pet profile

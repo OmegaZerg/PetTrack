@@ -15,8 +15,8 @@ def display_pet_profile_by_id(pet_id: str, config: str = None):
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
         
-        if not pets[pet_id]:
-            print(f"Unable to find pet ID: {pet_id}")
+        if pet_id not in pets:
+            print(f"Unable to find pet ID: {pet_id}! Try again!")
             return
 
         if config == "short":
@@ -63,12 +63,18 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
         print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
         return
     if not os.path.exists(TEST_FILE):
-        generate_log(LogLevel.WARNING, f"Unable to find the pets.json file in directoryL {TEST_FILE}. Please create a pet profile first!")
+        generate_log(LogLevel.WARNING, f"Unable to find the pets.json file in directory  {TEST_FILE}. Please create a pet profile first!")
         print("ERROR: Unable to find the pets.json file in this directory. Please create a pet profile first!")
         return
     try:
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
+        if pet_id not in pets:
+            print(f"Unable to find pet ID: {pet_id}! Try again!")
+            return
+    except KeyError as ke:
+        print(f"ERROR: Unable to find pet ID: {ke}!")
+        return
     except Exception as e:
         generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "get_pet_profile_by_id")
         return
@@ -255,6 +261,28 @@ def delete_pet_profile_by_id(pet_id: str):
         print(f"Unable to find Pet ID: {pet_id}. Delete operation canceled!")
         input("Press Enter to continue...")
 
+def edit_pet_profile_by_id(pet_id: str, pet: PetProfile):
+    if not os.path.exists(TEST_FILE):
+        generate_log(LogLevel.ERROR, f"File path to pets data does not exist. Unable to edit Pet ID: {pet_id}", "edit_pet_profile_by_id")
+        raise Exception(f"ERROR: File path to pets data does not exist. Unable to edit Pet ID: {pet_id}")    
+    try:
+        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            pets = json.load(read_file)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "edit_pet_profile_by_id")
+    updated_pet = {
+        "name": pet.name,
+        "type": pet.type,
+        "age": pet.age,
+        "gender": pet.gender,
+        "color": pet.color
+    }
+    pets[pet_id] = updated_pet
+    try:
+        with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+            json.dump(pets, write_file, indent=4)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
 
 def get_user_input(text: UserInput) -> int | str:
     match text:
@@ -341,6 +369,37 @@ def get_user_input(text: UserInput) -> int | str:
             while type not in [item.value for item in PetType]:
                 type = input(text.value)
             return type
+        case UserInput.EDIT_PETS:
+            valid_input = ["1", "2", "3", "4", "5"]
+            field_to_edit = input(text.value)
+            while field_to_edit not in valid_input:
+                field_to_edit = input(text.value)
+            return int(field_to_edit)
+        case UserInput.EDIT_PROFILE_NAME:
+            text = input(text.value)
+            if not text:
+                text = input(text.value)
+            return text
+        case UserInput.EDIT_PROFILE_TYPE:
+            type = input(text.value)
+            if type not in [item.value for item in PetType]:
+                type = input(text.value)
+            return type
+        case UserInput.EDIT_PROFILE_AGE:
+            age = input(text.value)
+            if not age.isnumeric():
+                age = input(text.value)
+            return age
+        case UserInput.EDIT_PROFILE_GENDER:
+            gender = input(text.value)
+            if gender not in [item.value for item in PetGender]:
+                gender = input(text.value)
+            return gender
+        case UserInput.EDIT_PROFILE_COLOR:
+            color = input(text.value)
+            if color not in [item.value for item in PetColor]:
+                color = input(text.value)
+            return color
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 

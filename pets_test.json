@@ -25,7 +25,7 @@
     "PT_2": {
         "name": "Ren",
         "type": "Dog",
-        "age": 8,
+        "age": "9",
         "gender": "M",
         "color": "Pink"
     },

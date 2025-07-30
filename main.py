@@ -42,6 +42,92 @@ def main():
                                             pet_name = get_user_input(UserInput.GET_PET_NAME)
                                             pet_id_found = search_pets(name = pet_name)
                                             if pet_id_found:
+                                                input(f"\nShowing all pets with the name '{pet_name}'. Please make note of the Pet profile ID you wish to edit, then continue back through the edit process. Press Enter to continue...")
+                                            continue
+                                        case 2:
+                                            print("Valid Pet Types:")
+                                            for line in TYPES:
+                                                print(TYPES[line])
+                                            pet_type = get_user_input(UserInput.GET_PET_TYPE)
+                                            pet_id_found = search_pets(type = pet_type)
+                                            if pet_id_found:
+                                                input(f"\nShowing all pets with the type '{pet_type}'. Please make note of the Pet profile ID you wish to edit, then continue back through the edit process. Press Enter to continue...")
+                                            continue
+                                        case _:
+                                            raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")    
+                                case 9:
+                                    continue
+                        case 2:
+                            #Function to Edit Existing
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
+                            #TODO: Build menu/options
+                            have_pet_id = get_user_input(UserInput.HAVE_PET_ID)
+                            match have_pet_id:
+                                case 1:
+                                    pet = None
+                                    while not pet:
+                                        pet_id = get_user_input(UserInput.GET_PET_ID)
+                                        pet = get_pet_profile_by_id(pet_id)
+                                    print(f"Selected {pet}")
+                                    field_to_edit = get_user_input(UserInput.EDIT_PETS)
+                                    match field_to_edit:
+                                        case 1:
+                                            #Name
+                                            os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_pet_profile_by_id(pet_id)
+                                            print(f"Editing Name for Pet Profile '{pet_id}'. ", end="")
+                                            updated_name = get_user_input(UserInput.EDIT_PROFILE_NAME)
+                                            pet.name = updated_name
+                                            print(f"Updated pet: {pet}")
+                                            edit_pet_profile_by_id(pet_id, pet)
+                                        case 2:
+                                            #Type
+                                            #TODO: Display valid types
+                                            os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_pet_profile_by_id(pet_id)
+                                            print(f"Editing Type for Pet Profile '{pet_id}'. ", end="")
+                                            updated_type = get_user_input(UserInput.EDIT_PROFILE_TYPE)
+                                            pet.type = updated_type
+                                            print(f"Updated pet: {pet}")
+                                            edit_pet_profile_by_id(pet_id, pet)
+                                        case 3:
+                                            #Age
+                                            os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_pet_profile_by_id(pet_id)
+                                            print(f"Editing Age for Pet Profile '{pet_id}'. ", end="")
+                                            updated_age = get_user_input(UserInput.EDIT_PROFILE_AGE)
+                                            pet.age = updated_age
+                                            print(f"Updated pet: {pet}")
+                                            edit_pet_profile_by_id(pet_id, pet)
+                                        case 4:
+                                            #Gender
+                                            #TODO: Display valid genders
+                                            os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_pet_profile_by_id(pet_id)
+                                            print(f"Editing Gender for Pet Profile '{pet_id}'. ", end="")
+                                            updated_gender = get_user_input(UserInput.EDIT_PROFILE_GENDER)
+                                            pet.gender = updated_gender
+                                            print(f"Updated pet: {pet}")
+                                            edit_pet_profile_by_id(pet_id, pet)
+                                        case 5:
+                                            #Color
+                                            #TODO: Display valid colors
+                                            os.system('cls' if os.name == 'nt' else 'clear')
+                                            display_pet_profile_by_id(pet_id)
+                                            print(f"Editing Color for Pet Profile '{pet_id}'. ", end="")
+                                            updated_color = get_user_input(UserInput.EDIT_PROFILE_COLOR)
+                                            pet.color = updated_color
+                                            print(f"Updated pet: {pet}")
+                                            edit_pet_profile_by_id(pet_id, pet)
+                                    input("Press Enter to continue...")
+                                case 2:
+                                    search_method = get_user_input(UserInput.SEARCH)
+                                    match search_method:
+                                        case 1:
+                                            pet_name = get_user_input(UserInput.GET_PET_NAME)
+                                            pet_id_found = search_pets(name = pet_name)
+                                            if pet_id_found:
                                                 input(f"\nShowing all pets with the name '{pet_name}'. Press Enter to continue...")
                                             continue
                                         case 2:
@@ -57,12 +143,6 @@ def main():
                                             raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")    
                                 case 9:
                                     continue
-                        case 2:
-                            #Function to Edit Existing
-                            os.system('cls' if os.name == 'nt' else 'clear')
-                            print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
-                            #TODO: Build menu/options
-                            input("Press Enter to continue...")
                         case 3:
                             #Create
                             os.system('cls' if os.name == 'nt' else 'clear')

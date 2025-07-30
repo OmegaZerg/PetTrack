@@ -12,3 +12,7 @@
 2025-07-24 09:26:40,222 - ERROR - Unable to open pets_test.json: 'int' object is not subscriptable - search_pets
 2025-07-24 09:29:39,200 - ERROR - Unable to open pets_test.json: 'int' object is not subscriptable - search_pets
 2025-07-30 07:19:27,780 - INFO - pets.json file integrity validated, no correction required. - validate_pet_entries
+2025-07-30 11:18:51,389 - ERROR - Unable to open pets_test.json: 'PT_12' - get_pet_profile_by_id
+2025-07-30 11:23:10,265 - ERROR - Unable to open pets_test.json: 'PT_12' - get_pet_profile_by_id
+2025-07-30 11:24:03,351 - ERROR - Unable to open pets_test.json: 'PT_12' - get_pet_profile_by_id
+2025-07-30 11:52:02,742 - ERROR - Unable to open pets_test.json: not readable - edit_pet_profile_by_id
