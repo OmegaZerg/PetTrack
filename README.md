@@ -28,3 +28,7 @@ App to help track and manage pets! An overview of features are listed below.
 ## Project Goals
 1. Practice Python by making a usefull CLI application
 2. Have fun (is that allowed?)
+
+## Completed Tasks
+- Create pet profile
+- Delete pet profile

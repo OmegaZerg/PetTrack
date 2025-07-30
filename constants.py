@@ -19,13 +19,14 @@ class MenuHeader(Enum):
 class UserInput(Enum):
     MAIN_MENU = "Please select from one of the following options:\n1. View/Manage pet profiles\n2. View/Manage mealtime data\n3. View/Manage reminders\n4. View blog\n9. Exit Pet_track\n"
     MANAGE_PETS = "Please select from one of the following options:\n1. View an existing pet profile\n2. Edit an existing pet profile\n3. Create a new pet profile\n4. Delete an existing pet profile\n9. Return to the main menu\n"
+    VIEW_PROFILE = ""
     CREATE_PROFILE = "To create a new pet profile, enter 5 values separated by spaces in the following order. (Also reference the above template under this menu's header): Animal_Name | Type | Age | Gender | Color\n"
     CONFIRM_DELETE_PROFILE = "Are you sure you wish to delete the above pet profile?\nType 'Y or Yes' to confirm deletetion, type 'N or No' to abort deletion and keep this pet profile.\n"
     GET_PET_ID = "Please enter only the numeric portion of the pet ID.'\nPT_"
     SEARCH = "Would you like to search pets by Name or Type? Select 1 or 2:\n1. Search by Name\n2. Search by Type\n"
     GET_PET_NAME = "Please enter a pet name you would like to search:\n"
     GET_PET_TYPE = "Please enter a pet type you would like to search(This is case-sensitive):\n"
-    HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to delete? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
+    HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to search? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
    
 
 class PetColor(Enum):

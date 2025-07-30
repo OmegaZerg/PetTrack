@@ -15,6 +15,10 @@ def display_pet_profile_by_id(pet_id: str, config: str = None):
         with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
         
+        if not pets[pet_id]:
+            print(f"Unable to find pet ID: {pet_id}")
+            return
+
         if config == "short":
             print(f"Pet ID: {pet_id} -> Name: {pets[pet_id]["name"]}, Type: {pets[pet_id]["type"]}, Age: {pets[pet_id]["age"]}, Gender: {pets[pet_id]["gender"]}, Color: {pets[pet_id]["color"]}")
         else:
@@ -72,7 +76,6 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
     return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
-    #TODO: Currently this is specific for the delete_pet_profile_by_id function. May need to change how this works if I need to allow it to work in other places. <-------------------
     print("Searching pets...")
     if pet_id != "":
         display_pet_profile_by_id(pet_id)
@@ -84,17 +87,14 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
             for pet_id in pets:
                 if not pet_id.startswith("PT_"):
                     continue
-                #TODO: use lower method?
                 if pets[pet_id]["name"].lower() == name.lower():
                     pet_list.append(pet_id)
             if len(pet_list) < 1:
                 input(f"No pets found matching the input name of '{name}'. Press Enter to continue...")
-                return
+                return False
             for pet_id in pet_list:
                 display_pet_profile_by_id(pet_id, "Short")
-            input(f"\nShowing all pets with the name '{name}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to Pet Profile Management...")
-            #Could possibly return the pet_id in the future if needed?
-            return
+            return True
         except Exception as e:
             generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
     elif type != "":
@@ -109,12 +109,10 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
                     pet_list.append(pet_id)
             if len(pet_list) < 1:
                 input(f"No pets found matching the input type of '{type}'. Press Enter to return to Pet Profile Management...")
-                return
+                return False
             for pet_id in pet_list:
                 display_pet_profile_by_id(pet_id, "Short")
-            input(f"\nShowing all pets with the type '{type}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to continue...")
-            #Could possibly return the pet_id in the future if needed?
-            return
+            return True
         except Exception as e:
             generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
 

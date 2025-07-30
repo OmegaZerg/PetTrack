@@ -26,11 +26,37 @@ def main():
                     sub_menu_choice = get_user_input(UserInput.MANAGE_PETS)
                     match sub_menu_choice:
                         case 1:
-                            #Function for View Existing
+                            #View
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.VIEW_1.value:{"~"}^50}")
-                            #TODO: Build menu/options
-                            input("Press Enter to continue...")
+                            have_pet_id = get_user_input(UserInput.HAVE_PET_ID)
+                            match have_pet_id:
+                                case 1:
+                                    pet_id = get_user_input(UserInput.GET_PET_ID)
+                                    display_pet_profile_by_id(pet_id)
+                                    input("Press Enter to continue...")
+                                case 2:
+                                    search_method = get_user_input(UserInput.SEARCH)
+                                    match search_method:
+                                        case 1:
+                                            pet_name = get_user_input(UserInput.GET_PET_NAME)
+                                            pet_id_found = search_pets(name = pet_name)
+                                            if pet_id_found:
+                                                input(f"\nShowing all pets with the name '{pet_name}'. Press Enter to continue...")
+                                            continue
+                                        case 2:
+                                            print("Valid Pet Types:")
+                                            for line in TYPES:
+                                                print(TYPES[line])
+                                            pet_type = get_user_input(UserInput.GET_PET_TYPE)
+                                            pet_id_found = search_pets(type = pet_type)
+                                            if pet_id_found:
+                                                input(f"\nShowing all pets with the type '{pet_type}'. Press Enter to continue...")
+                                            continue
+                                        case _:
+                                            raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")    
+                                case 9:
+                                    continue
                         case 2:
                             #Function to Edit Existing
                             os.system('cls' if os.name == 'nt' else 'clear')
@@ -59,16 +85,18 @@ def main():
                                     match search_method:
                                         case 1:
                                             pet_name = get_user_input(UserInput.GET_PET_NAME)
-                                            #Currently not returning anything, sending back to menu instead
-                                            pet_id = search_pets(name = pet_name)
+                                            pet_id_found = search_pets(name = pet_name)
+                                            if pet_id_found:
+                                                input(f"\nShowing all pets with the name '{pet_name}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to return continue...")
                                             continue
                                         case 2:
                                             print("Valid Pet Types:")
                                             for line in TYPES:
                                                 print(TYPES[line])
                                             pet_type = get_user_input(UserInput.GET_PET_TYPE)
-                                            #Currently not returning anything, sending back to menu instead
-                                            pet_id = search_pets(type = pet_type)
+                                            pet_id_found = search_pets(type = pet_type)
+                                            if pet_id_found:
+                                                input(f"\nShowing all pets with the type '{pet_type}'. Please note the Pet Profile ID of the pet you wish to delete, then continue back through the deletion process. Press Enter to continue...")
                                             continue
                                         case _:
                                             raise ValueError(f"Unknown input of {search_method} was provided for the Search Pet profile menu.")    
@@ -79,7 +107,7 @@ def main():
                             #Return to main menu
                             break
                         case _:
-                            raise ValueError(f"Unknown input of {menu_choice} was provided for the View/Manage Pet profile menu.")
+                            raise ValueError(f"Unknown input of {sub_menu_choice} was provided for the View/Manage Pet profile menu.")
             case 2:
                 #Function for option 2 - Food Logging
                 pass
