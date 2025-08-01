@@ -400,6 +400,18 @@ def get_user_input(text: UserInput) -> int | str:
             if color not in [item.value for item in PetColor]:
                 color = input(text.value)
             return color
+        case UserInput.BLOGS:
+            valid_input = ["1", "2", "3", "9",]
+            choice = input(text.value)
+            while choice not in valid_input:
+                choice = input(text.value)
+            return int(choice)
+        case UserInput.BLOG_VIEW:
+            valid_input = ["1", "2", "3", "9",]
+            choice = input(text.value)
+            while choice not in valid_input:
+                choice = input(text.value)
+            return int(choice)
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 
@@ -419,6 +431,12 @@ def generate_log(level: LogLevel, log_message: str, func_name: str):
     #TODO: Have tempoarily added a truncate_limit constant to be used. This will need to be changed to use a settings.json file instead in the future. <-------------------
     if not os.path.exists(LOG_PATH):
         os.mkdir(LOG_PATH)
+    if not os.path.exists(LOG_FILE):
+        try:
+            with open(LOG_FILE, mode = "w", encoding="utf-8") as file:
+                file.write("Pet_Track Logs:")
+        except Exception as e:
+            print(f"ERROR: Unable to create the log file. {e}")
         
     logging.basicConfig(level=logging.INFO, filename=LOG_FILE, filemode="a", format="%(asctime)s - %(levelname)s - %(message)s")
 

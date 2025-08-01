@@ -1,12 +1,27 @@
 import json
 import os
-from functions import generate_log
+from datetime import date
+from functions import generate_log, get_user_input
 from constants import *
 
+def create_blog(blog_entry: str):
+    pass
+
+def edit_blog(date: str):
+    pass
+
+def menu_display_blog():
+    top_blog = get_blogs("top_1") #Display the most recent blog on the menu
+    pass
+
 def get_blogs(config: str, blog_id: str = ""):
-    if not os.path.exists("data/"):
-        os.mkdir("data/")
-        empty_blog = {"total_entries": 0, "empty_slots": []}
+    #TODO: Testing get_blogs function
+    if not os.path.exists(BLOG_PATH):
+        os.mkdir(BLOG_PATH)
+    if not os.path.exists(BLOG_FILE):
+        today = date.today()
+        formatted_date = today.strftime("%Y-%m-%d")
+        empty_blog = {formatted_date: None}
         try:
             with open(BLOG_FILE, mode="w", encoding="utf-8") as write_file:
                 json.dump(empty_blog, write_file)

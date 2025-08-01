@@ -20,8 +20,11 @@ class MenuHeader(Enum):
     VIEW_1 = "| View Pet Profile |"
     FOOD_LOG_1 = "| Pet Nutrition |"
     REMINDERS_1 = "| Pet Reminders |"
-    BLOG_1 = "| Your Blog |"
+    BLOG_1 = "| Your Blog History |"
     BLOG_2 = "< Most Recent Blog >"
+    BLOG_VIEW = "| View Blogs |"
+    BLOG_EDIT = "| Edit Blogs |"
+    BLOG_CREATE = "| Create Blogs |"
 
 class UserInput(Enum):
     MAIN_MENU = "Please select from one of the following options:\n1. View/Manage pet profiles\n2. View/Manage mealtime data\n3. View/Manage reminders\n4. View blog\n9. Exit Pet_track\n"
@@ -39,7 +42,10 @@ class UserInput(Enum):
     GET_PET_NAME = "Please enter a pet name you would like to search:\n"
     GET_PET_TYPE = "Please enter a pet type you would like to search(This is case-sensitive):\n"
     HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to search? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
-   
+    BLOGS = "Please select from one of the following options:\n1. View Existing Blog\n2. Edit Previous Blog\n3. Create a Blog\n9. Return to the main menu\n"
+    BLOG_VIEW = "Please select one of the following options:\n1. View all blogs\n2. View the most recent 'n' number of blogs\n3. View the blog from a specific date\n9. Return to the Blog History Menu\n"
+    BLOG_EDIT = ""
+    BLOG_CREATE = ""
 
 class PetColor(Enum):
     BLACK = "Black"

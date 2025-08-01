@@ -194,20 +194,57 @@ def main():
                 #Main Menu option 2 - Food Logging
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print(f"{MenuHeader.FOOD_LOG_1.value:{"~"}^50}")
+                print("Food Logging Feature coming soon!")
                 input("Press Enter to continue...")
             case 3:
                 #Main Menu option 3 - Reminders
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print(f"{MenuHeader.REMINDERS_1.value:{"~"}^50}")
+                print("Pet Reminders Feature coming soon!")
                 input("Press Enter to continue...")
             case 4:
                 #Main Menu option 4 - Blog
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print(f"{MenuHeader.BLOG_1.value:{"~"}^50}")
-                print(f"{MenuHeader.BLOG_2.value:{"~"}^50}")
-                #TODO: Testing new get_blogs function
-                get_blogs("top_1")
-                input("Press Enter to continue...")
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print(f"{MenuHeader.BLOG_1.value:{"~"}^50}")
+                    print(f"{MenuHeader.BLOG_2.value:{"~"}^50}")
+                    menu_display_blog()
+                    sub_menu_choice = get_user_input(UserInput.BLOGS)
+                    match sub_menu_choice:
+                        case 1:
+                            #TODO: View Blogs
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"{MenuHeader.BLOG_VIEW.value:{"~"}^50}")
+                            view_choice = get_user_input(UserInput.BLOG_VIEW)
+                            match view_choice:
+                                case 1:
+                                    #TODO: View All
+                                    input("View All")
+                                    pass
+                                case 2:
+                                    #TODO: View top n
+                                    input("View top n")
+                                    pass
+                                case 3:
+                                    #TODO: View by date
+                                    input("View by date")
+                                    pass
+                                case 9:
+                                    #Return to Blogs Menu
+                                    continue
+                            pass
+                        case 2:
+                            #TODO: Edit Blogs
+                            pass
+                        case 3:
+                            #TODO: Create Blogs
+                            pass
+                        case 9:
+                            #Return to main menu
+                            break
+                        case _:
+                            raise ValueError(f"Unknown input of {sub_menu_choice} was provided for the Blog menu.")
+                    input("Press Enter to continue...")
             case 9:
                 print("Closing Pet_Track.")
                 break
