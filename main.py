@@ -220,6 +220,7 @@ def main():
                                 case 1:
                                     #TODO: View All
                                     input("View All")
+                                    get_blogs("all")
                                     pass
                                 case 2:
                                     #TODO: View top n
@@ -238,6 +239,8 @@ def main():
                             pass
                         case 3:
                             #TODO: Create Blogs
+                            #TODO: Need input to gather the blog text
+                            create_blog("This is a test")
                             pass
                         case 9:
                             #Return to main menu

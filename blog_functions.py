@@ -5,7 +5,30 @@ from functions import generate_log, get_user_input
 from constants import *
 
 def create_blog(blog_entry: str):
-    pass
+    today = date.today()
+    formatted_date = today.strftime("%Y-%m-%d")
+    if not os.path.exists(BLOG_FILE):
+        empty_blog = {formatted_date: None}
+        try:
+            with open(BLOG_FILE, mode="w", encoding="utf-8") as write_file:
+                json.dump(empty_blog, write_file)
+        except Exception as e:
+            generate_log(LogLevel.ERROR, f"Unable to open {BLOG_FILE}: {e}", "create_blog")
+    try:
+        with open(BLOG_FILE, mode="r", encoding="utf-8") as read_file:
+            blogs = json.load(read_file)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to open {BLOG_FILE}: {e}", "get_all_blogs")
+        return
+    if formatted_date in blogs:
+        print(f"There is already a blog for today's date: '{formatted_date}'. Please use the edit menu to edit the existing blog instead.")
+        return
+    blogs[formatted_date] = blog_entry
+    try:
+        with open(BLOG_FILE, mode="w", encoding="utf-8") as write_file:
+            json.dump(blogs, write_file)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to write to {BLOG_FILE}: {e}", "get_all_blogs")
 
 def edit_blog(date: str):
     pass
@@ -21,7 +44,7 @@ def get_blogs(config: str, blog_id: str = ""):
     if not os.path.exists(BLOG_FILE):
         today = date.today()
         formatted_date = today.strftime("%Y-%m-%d")
-        empty_blog = {formatted_date: None}
+        empty_blog = {formatted_date: "Blog file has been created."}
         try:
             with open(BLOG_FILE, mode="w", encoding="utf-8") as write_file:
                 json.dump(empty_blog, write_file)
@@ -34,16 +57,21 @@ def get_blogs(config: str, blog_id: str = ""):
     except Exception as e:
         generate_log(LogLevel.ERROR, f"Unable to open {BLOG_FILE}: {e}", "get_pet_profile_by_id")
         return
-    if len(blogs) < 3:
+    if len(blogs) < 1:
+        generate_log(LogLevel.WARNING, f"Unable to get blogs. File '{BLOG_FILE}' is empty!")
         return
+    
+    
     match config:
         case "top_1":
             #TODO: Return most recent blog
             print("Top1")
             pass
         case "all":
-            #TODO: Return all blogs
+            #TODO: Return all blogs, currently unsorted
             print("All")
+            for i, blog in enumerate(blogs):
+                print(f" Blog {i}. {blogs[blog]}")
             pass
         case "by_id":
             if not blog_id:

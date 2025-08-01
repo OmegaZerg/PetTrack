@@ -27,7 +27,7 @@ class MenuHeader(Enum):
     BLOG_CREATE = "| Create Blogs |"
 
 class UserInput(Enum):
-    MAIN_MENU = "Please select from one of the following options:\n1. View/Manage pet profiles\n2. View/Manage mealtime data\n3. View/Manage reminders\n4. View blog\n9. Exit Pet_track\n"
+    MAIN_MENU = "Please select from one of the following options:\n1. View/Manage pet profiles\n2. View/Manage mealtime data\n3. View/Manage reminders\n4. View/Add blogs\n9. Exit Pet_track\n"
     MANAGE_PETS = "Please select from one of the following options:\n1. View an existing pet profile\n2. Edit an existing pet profile\n3. Create a new pet profile\n4. Delete an existing pet profile\n9. Return to the main menu\n"
     EDIT_PETS = "Please select from one of the following options:\n1. Edit Pet Name\n2. Edit Pet Type\n3. Edit Pet Age\n4. Edit Pet Gender\n5. Edit Pet Color\n"
     CREATE_PROFILE = "To create a new pet profile, enter 5 values separated by spaces in the following order. (Also reference the above template under this menu's header): Animal_Name | Type | Age | Gender | Color\n"
