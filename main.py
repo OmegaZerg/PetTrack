@@ -59,7 +59,6 @@ def main():
                                     continue
                         case 2:
                             #Edit
-                            #TODO: edit menu needs more testing
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.EDIT_1.value:{"~"}^50}")
                             have_pet_id = get_user_input(UserInput.HAVE_PET_ID)

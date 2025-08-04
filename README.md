@@ -1,6 +1,14 @@
 # PetTrack
 App to help track and manage pets! An overview of features are listed below.
 
+## Instructions to run
+- There are no dependancies other than python at this time (as of current version 0.2.0 - 8/4/2025)
+1. Clone the Repo
+2. Remove the data directory (or don't...im not your supervisor or anything)
+3. Run main.py
+4. Use the app
+5. Report bugs/issues (if you must) -- Seriously do though and ill get 'em taken care of.
+
 ## Select from multiple pet profiles
  - Ability to manage each pet profile that is created (CRUD)
 
