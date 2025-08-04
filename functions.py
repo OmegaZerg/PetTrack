@@ -3,6 +3,7 @@ import os
 from constants import *
 from classes import *
 from random import randint
+import re
 import logging
 logger = logging.getLogger(__name__)
 
@@ -412,6 +413,17 @@ def get_user_input(text: UserInput) -> int | str:
             while choice not in valid_input:
                 choice = input(text.value)
             return int(choice)
+        case UserInput.GET_DATE:
+            valid_date_pattern = r"^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+            date = input(text.value)
+            while not bool(re.match(valid_date_pattern, date)):
+                date = input(text.value)
+            return date
+        case UserInput.NUM_BLOGS:
+            num = input(text.value)
+            while not num.isnumeric():
+                num = input(text.value)
+            return num
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 

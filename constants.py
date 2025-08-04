@@ -46,6 +46,8 @@ class UserInput(Enum):
     BLOG_VIEW = "Please select one of the following options:\n1. View all blogs\n2. View the most recent 'n' number of blogs\n3. View the blog from a specific date\n9. Return to the Blog History Menu\n"
     BLOG_EDIT = ""
     BLOG_CREATE = ""
+    GET_DATE = "Please enter the date of the blog you wish to view below. Dates must be in the following format: YYYY-MM-DD\n"
+    NUM_BLOGS = "Please enter how many blogs you wish to view:\n"
 
 class PetColor(Enum):
     BLACK = "Black"

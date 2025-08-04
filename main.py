@@ -212,42 +212,47 @@ def main():
                     sub_menu_choice = get_user_input(UserInput.BLOGS)
                     match sub_menu_choice:
                         case 1:
-                            #TODO: View Blogs
+                            #View Blogs
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"{MenuHeader.BLOG_VIEW.value:{"~"}^50}")
                             view_choice = get_user_input(UserInput.BLOG_VIEW)
                             match view_choice:
                                 case 1:
-                                    #TODO: View All
-                                    input("View All")
-                                    get_blogs("all")
-                                    pass
+                                    all_blogs = get_blogs("all")
+                                    os.system('cls' if os.name == 'nt' else 'clear')
+                                    print(f"Showing all blogs:")
+                                    for blog in all_blogs:
+                                        print(f"{blog}:\n{all_blogs[blog]}\n")
+                                    input("Press Enter to continue...")
                                 case 2:
-                                    #TODO: View top n
-                                    input("View top n")
-                                    pass
+                                    num = get_user_input(UserInput.NUM_BLOGS)
+                                    top_n_blogs = get_blogs(num)
+                                    os.system('cls' if os.name == 'nt' else 'clear')
+                                    print(f"Showing the most recent '{num}' blogs:")
+                                    for blog in top_n_blogs:
+                                        print(f"{blog}:\n{top_n_blogs[blog]}\n")
+                                    input("Press Enter to continue...")
                                 case 3:
-                                    #TODO: View by date
-                                    input("View by date")
-                                    pass
+                                    date = get_user_input(UserInput.GET_DATE)
+                                    todays_blog = get_blogs("by_date", date)
+                                    print(todays_blog)
+                                    input("Press Enter to continue...")
                                 case 9:
                                     #Return to Blogs Menu
                                     continue
-                            pass
                         case 2:
                             #TODO: Edit Blogs
                             pass
                         case 3:
-                            #TODO: Create Blogs
+                            #Create Blogs
                             #TODO: Need input to gather the blog text
-                            create_blog("This is a test")
+                            create_blog("This is a MONDAY test")
                             pass
                         case 9:
                             #Return to main menu
                             break
                         case _:
                             raise ValueError(f"Unknown input of {sub_menu_choice} was provided for the Blog menu.")
-                    input("Press Enter to continue...")
             case 9:
                 print("Closing Pet_Track.")
                 break
