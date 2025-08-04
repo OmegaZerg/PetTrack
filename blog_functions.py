@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import date
-from functions import generate_log, get_user_input
+from functions import generate_log
 from constants import *
 
 def create_blog(blog_entry: str):
@@ -55,8 +55,8 @@ def menu_display_blog():
         print(f"{key}: \n{value}\n")
 
 def get_blogs(config: str, blog_date: str = ""):
-    if not os.path.exists(BLOG_PATH):
-        os.mkdir(BLOG_PATH)
+    if not os.path.exists(DATA_PATH):
+        os.mkdir(DATA_PATH)
     if not os.path.exists(BLOG_FILE):
         today = date.today()
         formatted_date = today.strftime("%Y-%m-%d")
@@ -66,7 +66,7 @@ def get_blogs(config: str, blog_date: str = ""):
                 json.dump(empty_blog, write_file, indent=4)
         except Exception as e:
             generate_log(LogLevel.ERROR, f"Unable to open {BLOG_FILE}: {e}", "get_all_blogs")
-        return
+        return empty_blog
     try:
         with open(BLOG_FILE, mode="r", encoding="utf-8") as read_file:
             blogs = json.load(read_file)

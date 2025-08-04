@@ -4,7 +4,7 @@ TEST_FILE = "pets_test.json"
 PROD_FILE = "data/pets.json"
 LOG_PATH = "logs/"
 LOG_FILE = "logs/Pet_Track.log"
-BLOG_PATH = "data/"
+DATA_PATH = "data/"
 BLOG_FILE = "data/blog.json"
 TRUNCATE_LIMIT = 500
 
@@ -44,7 +44,6 @@ class UserInput(Enum):
     HAVE_PET_ID = "Do you have the Pet_ID for the pet profile you wish to search? Please select from one of the following options:\n1. Yes\n2. No\n9. Return to Pet Profile Management\n"
     BLOGS = "Please select from one of the following options:\n1. View Existing Blog\n2. Edit Previous Blog\n3. Create a Blog\n9. Return to the main menu\n"
     BLOG_VIEW = "Please select one of the following options:\n1. View all blogs\n2. View the most recent 'n' number of blogs\n3. View the blog from a specific date\n9. Return to the Blog History Menu\n"
-    BLOG_EDIT = ""
     BLOG_CREATE_EDIT = "Please enter your blog text below:\n"
     GET_DATE = "Please enter the date of the blog you wish to view/edit below. Dates must be in the following format: YYYY-MM-DD\n"
     NUM_BLOGS = "Please enter how many blogs you wish to view:\n"

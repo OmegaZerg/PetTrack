@@ -6,14 +6,21 @@ from random import randint
 import re
 import logging
 logger = logging.getLogger(__name__)
+#TODO: Replace PROD_FILE with PROD_FILE constant. This may also require some additional code to check for the directory first, and create it if it isnt already. <-------------------
 
 def display_pet_profile_by_id(pet_id: str, config: str = None):
     if not pet_id.startswith("PT_"):
         print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
         return
-    
+    if not os.path.exists(PROD_FILE):
+        empty_pets = {"total_entries": 0, "empty_slots": []}
+        try:
+            with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
+                json.dump(empty_pets, write_file)
+        except Exception as e:
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "display_pet_profile_by_id")
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
         
         if pet_id not in pets:
@@ -57,18 +64,18 @@ def display_pet_profile_by_id(pet_id: str, config: str = None):
     except KeyError as ke:
         print(f"ERROR: Unable to find pet ID: {ke}!")
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "display_pet_profile_by_id")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "display_pet_profile_by_id")
 
 def get_pet_profile_by_id(pet_id: str) -> PetProfile:
     if not pet_id.startswith("PT_"):
         print("Pet ID is required to start with 'PT_'. Please enter a valid ID.")
         return
-    if not os.path.exists(TEST_FILE):
-        generate_log(LogLevel.WARNING, f"Unable to find the pets.json file in directory  {TEST_FILE}. Please create a pet profile first!")
+    if not os.path.exists(PROD_FILE):
+        generate_log(LogLevel.WARNING, f"Unable to find the pets.json file in directory  {PROD_FILE}. Please create a pet profile first!")
         print("ERROR: Unable to find the pets.json file in this directory. Please create a pet profile first!")
         return
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
         if pet_id not in pets:
             print(f"Unable to find pet ID: {pet_id}! Try again!")
@@ -77,18 +84,25 @@ def get_pet_profile_by_id(pet_id: str) -> PetProfile:
         print(f"ERROR: Unable to find pet ID: {ke}!")
         return
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "get_pet_profile_by_id")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "get_pet_profile_by_id")
         return
     
     return PetProfile(pets[pet_id]["name"], pets[pet_id]["type"], pets[pet_id]["age"], pets[pet_id]["gender"], pets[pet_id]["color"])
 
 def search_pets(pet_id: str = "", name: str = "", type: str = ""):
+    if not os.path.exists(PROD_FILE):
+        empty_pets = {"total_entries": 0, "empty_slots": []}
+        try:
+            with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
+                json.dump(empty_pets, write_file)
+        except Exception as e:
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "search_pets")
     print("Searching pets...")
     if pet_id != "":
         display_pet_profile_by_id(pet_id)
     elif name != "":
         try:
-            with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
                 pets = json.load(read_file)
             pet_list = []
             for pet_id in pets:
@@ -103,10 +117,10 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
                 display_pet_profile_by_id(pet_id, "Short")
             return True
         except Exception as e:
-            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "search_pets")
     elif type != "":
         try:
-            with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+            with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
                 pets = json.load(read_file)
             pet_list = []
             for pet_id in pets:
@@ -121,12 +135,14 @@ def search_pets(pet_id: str = "", name: str = "", type: str = ""):
                 display_pet_profile_by_id(pet_id, "Short")
             return True
         except Exception as e:
-            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "search_pets")
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "search_pets")
 
 
 def menu_display_pet_profiles(num: int):
     #Get up to num pet profiles to display
-    if not os.path.exists(TEST_FILE):
+    if not os.path.exists(DATA_PATH):
+        os.mkdir(DATA_PATH)
+    if not os.path.exists(PROD_FILE):
         sample_1 = PetProfile("Lucky", "Dog", 4, "M", "Brown")
         sample_2 = PetProfile("Lucy", "Cat", 8, "F", "Black")
         print("Add pets by visiting the 'Create Pet Profile' menu. Showing samples:")
@@ -134,14 +150,20 @@ def menu_display_pet_profiles(num: int):
         print(sample_2)
         return
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
             pet_count = int(pets["total_entries"])
     except Exception as e:
         sample_1 = PetProfile("Lucky", "Dog", 4, "M", "Brown")
         print(f"Pet ID: Sample -> {sample_1}")
         generate_log(LogLevel.ERROR, f"Issue with displaying auto generated pet: {e}", "menu_display_pet_profiles")
-
+    if pet_count == 0:
+        sample_1 = PetProfile("Lucky", "Dog", 4, "M", "Brown")
+        sample_2 = PetProfile("Lucy", "Cat", 8, "F", "Black")
+        print("Add pets by visiting the 'Create Pet Profile' menu. Showing samples:")
+        print(sample_1)
+        print(sample_2)
+        return
     if pet_count >= num:
         #TODO: Add logic so that if a pet profile has already been selected for display, it will not be selected again. <-------------------
         #TODO: Needs to be smarter to where it only picks from an actual valid list. SO right now its just picking based on 1 through the pet count. but if there are empty slots (pets deleted) then this will potentially cause an error to display for 'unable to find pet id'. fix 2 birds 1 stone; change to random choice, populate choice list based on range of 1, pet_count but remove the empty slots. <-------------------
@@ -157,14 +179,14 @@ def menu_display_pet_profiles(num: int):
 
 
 def validate_pet_entries():
-    if not os.path.exists(TEST_FILE):
+    if not os.path.exists(PROD_FILE):
         generate_log(LogLevel.CRITICAL, "Unable to find JSON pet data file during validation of pet entries.", "validate_pet_entries")
         return
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
     except Exception as e:
-            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "validate_pet_entries")
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "validate_pet_entries")
     
     pet_count = int(pets["total_entries"])
     num_pets = len(pets) -2
@@ -172,23 +194,23 @@ def validate_pet_entries():
         generate_log(LogLevel.WARNING, f"Entry count and pet profile count mis-match. Total entries was: {pet_count}, while number of pets is: {num_pets}!", "validate_pet_entries")
         pets["total_entries"] = num_pets
         try:
-            with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+            with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
                 json.dump(pets, write_file, indent=4)
         except Exception as e:
-            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "validate_pet_entries")
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "validate_pet_entries")
             return
     else:
         generate_log(LogLevel.INFO, "pets.json file integrity validated, no correction required.", "validate_pet_entries")
 
 
 def create_pet_profile(pet: PetProfile):
-    if not os.path.exists(TEST_FILE):
+    if not os.path.exists(PROD_FILE):
         empty_pets = {"total_entries": 0, "empty_slots": []}
         try:
-            with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+            with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
                 json.dump(empty_pets, write_file)
         except Exception as e:
-            generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "create_pet_profile")
+            generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "create_pet_profile")
     
     new_pet = {
         "name": pet.name,
@@ -198,11 +220,11 @@ def create_pet_profile(pet: PetProfile):
         "color": pet.color
     }
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
             pet_count = int(pets["total_entries"])
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "create_pet_profile")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "create_pet_profile")
     new_pet_count = pet_count + 1
 
     if len(pets["empty_slots"]) > 0:
@@ -210,25 +232,27 @@ def create_pet_profile(pet: PetProfile):
     else:
         new_pet_id = f"PT_{new_pet_count}"
     try:
-        with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+        with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
             pets["total_entries"] = new_pet_count
             pets[new_pet_id] = new_pet
             json.dump(pets, write_file, indent=4)
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "create_pet_profile")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "create_pet_profile")
 
     display_pet_profile_by_id(new_pet_id)
 
 def delete_pet_profile_by_id(pet_id: str):
-    if not os.path.exists(TEST_FILE):
+    if not os.path.exists(PROD_FILE):
         generate_log(LogLevel.ERROR, f"File path to pets data does not exist. Unable to delete Pet ID: {pet_id}", "delete_pet_profile_by_id")
-        raise Exception(f"ERROR: File path to pets data does not exist. Unable to delete Pet ID: {pet_id}")
+        print(f"NOTICE: No pets data was found at path '{PROD_FILE}'. Unable to delete Pet ID: {pet_id}")
+        input("Press Enter to continue...")
+        return
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
             pet_count = int(pets["total_entries"])
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "delete_pet_profile_by_id")
 
     if pet_id in pets:
         print("Pet Found!")
@@ -241,19 +265,19 @@ def delete_pet_profile_by_id(pet_id: str):
             pets["total_entries"] = new_pet_count
             pets["empty_slots"].append(pet_id)
             try:
-                with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+                with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
                     json.dump(pets, write_file, indent=4)
             except Exception as e:
-                generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
+                generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "delete_pet_profile_by_id")
             print("Pet profile successfully deleted")
             input("Press Enter to continue...")
         elif confirm_delete == "n" or confirm_delete == "no":
             pets[pet_id] = pet_to_remove
             try:
-                with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+                with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
                     json.dump(pets, write_file, indent=4)
             except Exception as e:
-                generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
+                generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "delete_pet_profile_by_id")
             print(f"Pet with ID: {pet_id} was not deleted.")
             input("Press Enter to continue...")
         validate_pet_entries()
@@ -263,14 +287,14 @@ def delete_pet_profile_by_id(pet_id: str):
         input("Press Enter to continue...")
 
 def edit_pet_profile_by_id(pet_id: str, pet: PetProfile):
-    if not os.path.exists(TEST_FILE):
+    if not os.path.exists(PROD_FILE):
         generate_log(LogLevel.ERROR, f"File path to pets data does not exist. Unable to edit Pet ID: {pet_id}", "edit_pet_profile_by_id")
         raise Exception(f"ERROR: File path to pets data does not exist. Unable to edit Pet ID: {pet_id}")    
     try:
-        with open(TEST_FILE, mode="r", encoding="utf-8") as read_file:
+        with open(PROD_FILE, mode="r", encoding="utf-8") as read_file:
             pets = json.load(read_file)
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "edit_pet_profile_by_id")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "edit_pet_profile_by_id")
     updated_pet = {
         "name": pet.name,
         "type": pet.type,
@@ -280,10 +304,10 @@ def edit_pet_profile_by_id(pet_id: str, pet: PetProfile):
     }
     pets[pet_id] = updated_pet
     try:
-        with open(TEST_FILE, mode="w", encoding="utf-8") as write_file:
+        with open(PROD_FILE, mode="w", encoding="utf-8") as write_file:
             json.dump(pets, write_file, indent=4)
     except Exception as e:
-        generate_log(LogLevel.ERROR, f"Unable to open {TEST_FILE}: {e}", "delete_pet_profile_by_id")
+        generate_log(LogLevel.ERROR, f"Unable to open {PROD_FILE}: {e}", "delete_pet_profile_by_id")
 
 def get_user_input(text: UserInput) -> int | str:
     match text:

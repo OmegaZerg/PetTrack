@@ -39,3 +39,8 @@ App to help track and manage pets! An overview of features are listed below.
 - View blogs (By date, All, or Top n) based on user input
 - Create blog
 - Edit blog
+
+## Future Plans
+1. Refactor into a project that utilizes a full UI.
+2. Possibly re-implement in a different language.
+3. Refactor the overall project structure. Having a full UI will help tremendously with this.

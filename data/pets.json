@@ -1,10 +1,11 @@
 {
     "total_entries": 1,
+    "empty_slots": [],
     "PT_1": {
-        "name": "test name",
+        "name": "Lucky",
         "type": "Dog",
-        "age": 8,
+        "age": "7",
         "gender": "M",
-        "color": "Brown"
+        "color": "Black"
     }
 }

@@ -18,3 +18,10 @@
 2025-07-30 11:52:02,742 - ERROR - Unable to open pets_test.json: not readable - edit_pet_profile_by_id
 2025-08-01 06:56:01,453 - ERROR - Unable to open data/blog.json: [Errno 2] No such file or directory: 'data/blog.json' - get_pet_profile_by_id
 2025-08-01 06:58:53,827 - ERROR - Unable to open data/blog.json: [Errno 2] No such file or directory: 'data/blog.json' - get_pet_profile_by_id
+2025-08-04 15:10:17,812 - ERROR - Unable to open data/pets.json: [Errno 2] No such file or directory: 'data/pets.json' - search_pets
+2025-08-04 15:11:29,565 - ERROR - Unable to open data/pets.json: [Errno 2] No such file or directory: 'data/pets.json' - search_pets
+2025-08-04 15:17:37,720 - ERROR - File path to pets data does not exist. Unable to delete Pet ID: PT_2 - delete_pet_profile_by_id
+2025-08-04 15:20:41,145 - ERROR - File path to pets data does not exist. Unable to delete Pet ID: PT_1 - delete_pet_profile_by_id
+2025-08-04 15:21:03,215 - ERROR - File path to pets data does not exist. Unable to delete Pet ID: PT_2 - delete_pet_profile_by_id
+2025-08-04 15:23:41,145 - ERROR - Unable to open data/pets.json: [Errno 2] No such file or directory: 'data/pets.json' - display_pet_profile_by_id
+2025-08-04 15:36:57,837 - INFO - pets.json file integrity validated, no correction required. - validate_pet_entries
