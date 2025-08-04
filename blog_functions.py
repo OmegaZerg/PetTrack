@@ -29,6 +29,7 @@ def create_blog(blog_entry: str):
             json.dump(blogs, write_file, indent=4, sort_keys=True)
     except Exception as e:
         generate_log(LogLevel.ERROR, f"Unable to write to {BLOG_FILE}: {e}", "get_all_blogs")
+    print(f"Blog created for todays date of {formatted_date}!")
 
 def edit_blog(date: str):
     pass

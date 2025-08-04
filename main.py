@@ -242,12 +242,14 @@ def main():
                                     continue
                         case 2:
                             #TODO: Edit Blogs
-                            pass
+                            input("Press Enter to continue...")
                         case 3:
                             #Create Blogs
-                            #TODO: Need input to gather the blog text
-                            create_blog("This is a MONDAY test")
-                            pass
+                            blog_text = get_user_input(UserInput.BLOG_CREATE)
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            print(f"You entered: '{blog_text}'")
+                            create_blog(blog_text)
+                            input("Press Enter to continue...")
                         case 9:
                             #Return to main menu
                             break

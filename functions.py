@@ -424,6 +424,11 @@ def get_user_input(text: UserInput) -> int | str:
             while not num.isnumeric():
                 num = input(text.value)
             return num
+        case UserInput.BLOG_CREATE:
+            blog_text = input(text.value)
+            while not blog_text:
+                blog_text = input(text.value)
+            return blog_text
         case _:
             generate_log(LogLevel.ERROR, "Function called without a valid UserInput enum", "get_user_input")
 
