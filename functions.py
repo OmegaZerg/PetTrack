@@ -424,7 +424,7 @@ def get_user_input(text: UserInput) -> int | str:
             while not num.isnumeric():
                 num = input(text.value)
             return num
-        case UserInput.BLOG_CREATE:
+        case UserInput.BLOG_CREATE_EDIT:
             blog_text = input(text.value)
             while not blog_text:
                 blog_text = input(text.value)

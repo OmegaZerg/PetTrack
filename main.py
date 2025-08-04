@@ -235,17 +235,26 @@ def main():
                                 case 3:
                                     date = get_user_input(UserInput.GET_DATE)
                                     todays_blog = get_blogs("by_date", date)
-                                    print(todays_blog)
+                                    print(f"Showing blog for date {date}:\n{todays_blog[date]}")
                                     input("Press Enter to continue...")
                                 case 9:
                                     #Return to Blogs Menu
                                     continue
                         case 2:
-                            #TODO: Edit Blogs
+                            #Edit Blog
+                            date = get_user_input(UserInput.GET_DATE)
+                            blog = get_blogs("by_date", date)
+                            if type(blog) is dict:
+                                print("This is a dictionary!")
+                                blog_text = get_user_input(UserInput.BLOG_CREATE_EDIT)
+                                result = edit_blog(date, blog_text)
+                                print(result)
+                            else:
+                                print(blog)
                             input("Press Enter to continue...")
                         case 3:
-                            #Create Blogs
-                            blog_text = get_user_input(UserInput.BLOG_CREATE)
+                            #Create Blog
+                            blog_text = get_user_input(UserInput.BLOG_CREATE_EDIT)
                             os.system('cls' if os.name == 'nt' else 'clear')
                             print(f"You entered: '{blog_text}'")
                             create_blog(blog_text)

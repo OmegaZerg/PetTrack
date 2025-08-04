@@ -24,7 +24,8 @@ App to help track and manage pets! An overview of features are listed below.
 
 ## Blog
 - Free text blog with date/time stamps for logging anything (Concerns, issues, notes, etc.)
-- Blog allows for only a single entry per day
+- Blog allows for only a single entry per day. Creating a blog attempts to create a blog for 'todays' date. If blog for today already exists, user is prompted to use the edit blog menu instead.
+- Blog does not allow for deleting blog entries.
 
 ## Project Goals
 1. Practice Python by making a usefull CLI application
@@ -35,3 +36,5 @@ App to help track and manage pets! An overview of features are listed below.
 - Delete pet profile
 - View pet profile
 - Edit pet profile
+- View blogs (By date, All, or Top n) based on user input
+- Create blog

@@ -31,17 +31,30 @@ def create_blog(blog_entry: str):
         generate_log(LogLevel.ERROR, f"Unable to write to {BLOG_FILE}: {e}", "get_all_blogs")
     print(f"Blog created for todays date of {formatted_date}!")
 
-def edit_blog(date: str):
-    pass
+def edit_blog(date: str, blog_text: str):
+    if not os.path.exists(BLOG_FILE):
+        generate_log(LogLevel.ERROR, f"No blog file found for path: {BLOG_FILE}, unable to edit blog!", "edit_blog")
+        return "No blog file was found, please create a blog first!"
+    try:
+        with open(BLOG_FILE, mode="r", encoding="utf-8") as read_file:
+            blogs = json.load(read_file)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to open {BLOG_FILE}: {e}", "edit_blog")
+        return
+    blogs[date] = blog_text
+    try:
+        with open(BLOG_FILE, mode="w", encoding="utf-8") as write_file:
+            json.dump(blogs, write_file, indent=4, sort_keys=True)
+    except Exception as e:
+        generate_log(LogLevel.ERROR, f"Unable to write to {BLOG_FILE}: {e}", "edit_blog")
+    return f"Blog updated for todays date of {date}!"
 
 def menu_display_blog():
     blog = get_blogs("1")
     for key, value in blog.items():
         print(f"{key}: \n{value}\n")
 
-
 def get_blogs(config: str, blog_date: str = ""):
-    #TODO: Testing get_blogs function
     if not os.path.exists(BLOG_PATH):
         os.mkdir(BLOG_PATH)
     if not os.path.exists(BLOG_FILE):
@@ -70,7 +83,7 @@ def get_blogs(config: str, blog_date: str = ""):
             generate_log(LogLevel.ERROR, "Blog ID is required when running the function 'get_blogs' with parameter of 'by_id' selected. No Blog ID was supplied.", "get_blogs")
             return
         if blog_date in blogs:
-            return f"Showing blog for date {blog_date}:\n{blogs[blog_date]}"
+            return {blog_date: blogs[blog_date]}
         return f"No blog found for date {blog_date}!"
     elif config == "all":
         return blogs
