@@ -245,7 +245,6 @@ def main():
                             date = get_user_input(UserInput.GET_DATE)
                             blog = get_blogs("by_date", date)
                             if type(blog) is dict:
-                                print("This is a dictionary!")
                                 blog_text = get_user_input(UserInput.BLOG_CREATE_EDIT)
                                 result = edit_blog(date, blog_text)
                                 print(result)

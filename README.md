@@ -38,3 +38,4 @@ App to help track and manage pets! An overview of features are listed below.
 - Edit pet profile
 - View blogs (By date, All, or Top n) based on user input
 - Create blog
+- Edit blog
